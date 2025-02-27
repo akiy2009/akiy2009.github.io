@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>akiy2009自己紹介</title>
+  <meta name="description" content="akiy2009の自己紹介サイトです。">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      background-color: #333;
+      padding: 80px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    /* Intro Section */
+    .intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .intro .image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .intro .image img {
+      border-radius: 50%;
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border: 4px solid #ccc;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+
+    .intro .image img:hover {
+      filter: grayscale(0%);
+    }
+
+    .intro .details {
+      flex: 2;
+      padding-left: 40px;
+    }
+
+    .intro .details h2 {
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .intro .details p {
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+
+    /* Skills Section */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+      margin-top: 60px;
+    }
+
+    .skills .skill {
+      background-color: #2c2c2c;
+      color: #e0e0e0;
+      border-radius: 8px;
+      padding: 30px;
+      width: 30%;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .skills .skill:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .skills .skill h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .skills .skill p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    /* Contact Section */
+    .contact {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+      border-radius: 8px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .contact a {
+      font-size: 1.1rem;
+      color: white;
+      text-decoration: none;
+      padding: 12px 30px;
+      background-color: #555;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact a:hover {
+      background-color: #888;
+    }
+
+    /* Projects Section */
+    .projects, .affiliations {
+      margin-top: 60px;
+    }
+
+    .projects h2, .affiliations h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .projects p, .affiliations p {
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+
+    /* Affiliations Link Styling */
+    .affiliations a {
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+      background-color: #444;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .affiliations a:hover {
+      background-color: #888;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .intro {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .intro .details {
+        padding-left: 0;
+      }
+
+      .skills .skill {
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .skills .skill {
+        width: 100%;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header Section -->
+    <div class="header">
+      <h1>akiy2009</h1>
+      <p>Web開発とDiscord BOT開発をしています。</p>
+    </div>
+
+    <!-- Introduction Section -->
+    <div class="intro">
+      <div class="image">
+        <img src="icon.jpg" alt="My Photo">
+      </div>
+      <div class="details">
+        <h2>自己紹介</h2>
+        <p>高等専門学校1年</p>
+        <p>gakuseiBOT 開発者</p>
+        <p>akiy2009と申します。</p>
+        <p>Web開発とDiscord BOT開発をしています。</p>
+        <p>趣味はプログラミングです。</p>
+        <p>よろしくお願いします。</p>
+        <p>お問い合わせは当サイトの下部にある物からお願いいたします。</p>
+      </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="skills">
+      <div class="skill">
+        <h3>DiscordBOT</h3>
+        <p>学生から開発者まで使用できるBOTを制作しています。</p>
+      </div>
+      <div class="skill">
+        <h3>Python</h3>
+        <p>DicordBOTをDicord.pyを使用しています。</p>
+      </div>
+      <div class="skill">
+        <h3>サーバー運営(Discord)</h3>
+        <p>皆さまが楽しく会話できるサーバーを提供しています。</p>
+      </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="projects">
+      <h2>gakuseiBOT</h2>
+      <p>現在、gakuseiBOTというDiscord BOTを開発中です。gakusei BOTは学生や開発者の支援を提供します。
+        時間管理、クイズ機能、モチベーション向上機能などを搭載しております。</p>
+    </div>
+
+    <!-- Affiliations Section -->
+    <div class="affiliations">
+      <h2>所属</h2>
+      <p>私は以下のリンク先に所属しています</p>
+      <a href="https://gakuseibot.pkopko.jp" target="_blank">gakuseiBOT コミュニティ</a>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact">
+      <h2>ご連絡はこちら</h2>
+      <a href="akiy2009_dev@outlook.com">Email</a>
+      <a href="https://twitter.com/JJ5RVW_2022" target="_blank">Twitter(X)</a>
+      <a href="https://discord.com/users/1241366063858450485" target="_blank">Discord</a>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2025 akiy2009. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
