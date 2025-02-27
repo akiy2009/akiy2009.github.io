@@ -1,0 +1,24 @@
+{
+  "name": "mypage",
+  "version": "1.0.0",
+  "description": "A simple self-introduction site using TypeScript and Tailwind CSS",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && postcss src/assets/css/styles.css -o dist/styles.css",
+    "start": "live-server dist",
+    "dev": "tsc --watch & postcss src/assets/css/styles.css -o dist/styles.css --watch"
+  },
+  "author": "akiy2009",
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^2.2.19",
+    "postcss": "^8.3.9",
+    "autoprefixer": "^10.3.4",
+    "live-server": "^1.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "@types/node": "^16.4.6",
+    "postcss-cli": "^9.1.0"
+  }
+}
