@@ -2,185 +2,151 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>akiy2009 - ポートフォリオ</title>
-  <meta name="description" content="akiy2009のポートフォリオ・自己紹介サイト">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="このページはAkiy2009の自己紹介サイトです。学生としての活動やスキル、プロジェクトを紹介しています。">
+  <title>Akiy2009の自己紹介サイト</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
-    :root {
-      --primary: #007acc;
-      --text: #222;
-      --bg: #ffffff;
-      --section-bg: #f8f9fa;
-    }
-
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
     }
-
     body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.8;
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f9fb;
+      color: #333;
+      scroll-behavior: smooth;
     }
-
     header {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       text-align: center;
-      padding: 60px 20px 30px;
+      background: #ffffff;
+      padding: 0 20px;
     }
-
     header h1 {
-      font-size: 2.5rem;
-      color: var(--primary);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #111827;
     }
-
     header p {
-      font-size: 1.1rem;
-      margin-top: 10px;
-      color: #555;
+      font-size: 1.25rem;
+      color: #6b7280;
+      margin-top: 1rem;
     }
-
-    .container {
+    .section {
+      padding: 80px 20px;
       max-width: 960px;
       margin: auto;
-      padding: 20px;
     }
-
-    section {
-      margin: 60px 0;
-    }
-
-    section h2 {
-      font-size: 1.8rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 5px;
-    }
-
-    .intro img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid var(--primary);
-      margin-bottom: 20px;
-    }
-
-    .intro {
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
       text-align: center;
+      margin-bottom: 40px;
+      color: #111827;
     }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+    .skills-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 16px;
     }
-
-    .skill-card {
-      flex: 1 1 30%;
-      background-color: var(--section-bg);
-      padding: 20px;
+    .skills-list div {
+      background: #f3f4f6;
+      padding: 12px;
       border-radius: 8px;
       text-align: center;
+      font-weight: 600;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+      transition: all 0.3s ease;
     }
-
-    .skill-card h3 {
-      color: var(--primary);
-      margin-bottom: 10px;
+    .skills-list div:hover {
+      background: #e5e7eb;
     }
-
-    .contact a {
-      display: inline-block;
-      margin: 10px 10px 0;
-      padding: 10px 20px;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-      border-radius: 5px;
-      text-decoration: none;
-      transition: 0.3s;
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
     }
-
-    .contact a:hover {
-      background-color: var(--primary);
-      color: #fff;
+    .project-card {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
     footer {
       text-align: center;
+      padding: 40px 20px;
+      background-color: #f3f4f6;
       font-size: 0.9rem;
-      color: #777;
-      padding: 30px 0;
-      border-top: 1px solid #eee;
+      color: #6b7280;
     }
-
-    @media (max-width: 768px) {
-      .skill-card {
-        flex: 1 1 100%;
-      }
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>akiy2009</h1>
-    <p>Web開発とDiscord BOT制作が好きな高専生</p>
+    <h1>Akiy2009</h1>
+    <p>Full Stack Engineer | Creative Developer</p>
   </header>
 
-  <div class="container">
+  <section class="section" data-aos="fade-up">
+    <h2>自己紹介</h2>
+    <p>私は学生という立場を最大限に活かし、多方面で積極的に活動しています。特に学生同士のコミュニティ形成に力を入れ、Discordなどを活用したコミュニティ運営を行っています。また、学習支援や交流促進のためのBOTを自作し、使いやすく役立つツールの提供にも取り組んでいます。さらに、自身の経験や情報を発信するためのサイト運営も行い、多くの学生に価値あるコンテンツを届けることを目指しています。これらの活動を通して、リーダーシップや技術力、コミュニケーション能力を磨きながら、未来に繋がる人間関係を築いています。</p>
+  </section>
 
-    <section class="intro">
-      <img src="icon.jpg" alt="アイコン">
-      <p><strong>高等専門学校2年生。</strong></p>
-      <p>gakuseiBOTの開発者。</p>
-      <p>日々、Web制作やBOT開発を楽しんでいます。</p>
-    </section>
+  <section class="section" data-aos="fade-up">
+    <h2>スキル</h2>
+    <div class="skills-list">
+      <div>HTML/CSS</div>
+      <div>JavaScript</div>
+      <div>React</div>
+      <div>Python</div>
+      <div>Flask</div>
+      <div>Node.js</div>
+      <div>TypeScript</div>
+      <div>TailWind CSS</div>
+    </div>
+  </section>
 
-    <section>
-      <h2>スキル</h2>
-      <div class="skills">
-        <div class="skill-card">
-          <h3>Discord BOT</h3>
-          <p>便利で使いやすいBOTを開発</p>
-        </div>
-        <div class="skill-card">
-          <h3>Python</h3>
-          <p>主にDiscord.pyを使っています</p>
-        </div>
-        <div class="skill-card">
-          <h3>サーバー運営</h3>
-          <p>楽しく安全なサーバー設計が得意です</p>
-        </div>
+  <section class="section" data-aos="fade-up">
+    <h2>プロジェクト</h2>
+    <div class="projects">
+      <div class="project-card">
+        <h3>gakuseiBOT</h3>
+        <p>勉強 × エンタメ × 便利機能</p>
+        <p>あなたの学生生活に“ちょっとしたスパイス”を加える、多機能BOTの世界へようこそ。</p>
       </div>
-    </section>
+  </section>
 
-    <section>
-      <h2>プロジェクト</h2>
-      <p><strong>gakuseiBOT：</strong> 時間管理・クイズ・グローバルチャット機能を搭載した多機能BOTを開発中。</p>
-    </section>
-
-    <section>
-      <h2>所属・活動</h2>
-      <p>以下のリンクから活動をご覧いただけます：</p>
-      <p><a href="https://gakuseibot.pkopko.jp" target="_blank">▶ gakuseiBOT コミュニティ</a></p>
-    </section>
-
-    <section class="contact">
-      <h2>連絡先</h2>
-      <a href="mailto:akiy2009_dev@outlook.com">Email</a>
-      <a href="https://twitter.com/JJ5RVW_2022" target="_blank">Twitter (X)</a>
-      <a href="https://discord.com/users/1241366063858450485" target="_blank">Discord</a>
-    </section>
-
-  </div>
+  <section class="section" data-aos="fade-up">
+    <h2>お問い合わせ</h2>
+    <p>コラボやお仕事のご依頼はこちらまでお気軽に。</p>
+    <p>Email: <a href="mailto:akiy2009_dev@outlook.jp">akiy2009_dev@outlook.jp</a></p>
+  </section>
 
   <footer>
-    &copy; 2025 akiy2009. All rights reserved.
+    &copy; 2025 Akiy2009 - All rights reserved.
   </footer>
 
+  <script>
+    AOS.init();
+  </script>
 </body>
 </html>
