@@ -3,21 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="このページはAkiy2009の自己紹介サイトです。学生としての活動やスキル、プロジェクトを紹介しています。">
-  <title>Akiy2009の自己紹介サイト</title>
+  <title>Akiy2009 | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f7f9fb;
-      color: #333;
+      background: #0d1117;
+      color: #e5e7eb;
       scroll-behavior: smooth;
     }
+
     header {
       height: 100vh;
       display: flex;
@@ -25,126 +22,266 @@
       align-items: center;
       flex-direction: column;
       text-align: center;
-      background: #ffffff;
-      padding: 0 20px;
     }
+
     header h1 {
       font-size: 3.5rem;
       font-weight: 700;
-      color: #111827;
+      color: #ffffff;
     }
-    header p {
-      font-size: 1.25rem;
-      color: #6b7280;
+
+    .typing {
+      font-size: 1.2rem;
+      color: #9ca3af;
       margin-top: 1rem;
+      border-right: 2px solid #9ca3af;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 1s infinite;
     }
-    .section {
+
+    @keyframes typing { from { width: 0 } to { width: 20em } }
+    @keyframes blink { 50% { border-color: transparent } }
+
+    section {
       padding: 80px 20px;
       max-width: 960px;
       margin: auto;
     }
+
     h2 {
       font-size: 2rem;
       font-weight: 600;
       text-align: center;
       margin-bottom: 40px;
-      color: #111827;
+      color: #f3f4f6;
+      position: relative;
+    }
+
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: #3b82f6;
+      border-radius: 2px;
+    }
+
+    /* 経歴・資格タイムライン */
+    .timeline {
+      position: relative;
+      margin-left: 20px;
+      padding-left: 20px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 20px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      background: #3b82f6;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #3b82f6;
+    }
+
+    .timeline-detail {
+      margin-top: 10px;
+      margin-left: 25px;
+      border-left: 2px solid #3b82f6;
+      padding-left: 15px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    /* スキルカテゴリ */
+    .skills-category { margin-bottom: 40px; }
+    .skills-category h3 {
+      font-size: 1.3rem;
+      color: #93c5fd;
+      margin-bottom: 16px;
     }
     .skills-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .skills-list div {
-      background: #f3f4f6;
-      padding: 12px;
+      background: #1f2937;
+      border: 1px solid #374151;
+      padding: 10px 16px;
       border-radius: 8px;
-      text-align: center;
-      font-weight: 600;
-      color: #374151;
-      border: 1px solid #e5e7eb;
       transition: all 0.3s ease;
     }
     .skills-list div:hover {
-      background: #e5e7eb;
+      background: #2563eb;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
     }
+
+    /* プロジェクトカード */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
     }
     .project-card {
-      background: #ffffff;
+      background: #111827;
+      border: 1px solid #1f2937;
       padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
     }
+    .project-card a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
     footer {
       text-align: center;
       padding: 40px 20px;
-      background-color: #f3f4f6;
+      background-color: #111827;
       font-size: 0.9rem;
-      color: #6b7280;
+      color: #9ca3af;
     }
-    a {
-      color: #3b82f6;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+
+    a { color: #60a5fa; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
+
   <header>
     <h1>Akiy2009</h1>
-    <p>Full Stack Engineer | Creative Developer</p>
+    <p class="typing">Full Stack Engineer | Creative Developer</p>
   </header>
 
-  <section class="section" data-aos="fade-up">
+  <!-- 自己紹介 -->
+  <section data-aos="fade-up">
     <h2>自己紹介</h2>
-    <p>私は学生という立場を最大限に活かし、多方面で積極的に活動しています。特に学生同士のコミュニティ形成に力を入れ、Discordなどを活用したコミュニティ運営を行っています。また、学習支援や交流促進のためのBOTを自作し、使いやすく役立つツールの提供にも取り組んでいます。</p>
+    <p>
+      私は学生という立場を最大限に活かし、多方面で積極的に活動しています。
+      特に学生同士のコミュニティ形成に力を入れ、Discordなどを活用したコミュニティ運営を行っています。
+      また、学習支援や交流促進のためのBOTを自作し、使いやすく役立つツールの提供にも取り組んでいます。
+    </p>
   </section>
 
-  <section class="section" data-aos="fade-up">
+  <!-- 経歴 -->
+  <section data-aos="fade-up">
     <h2>経歴</h2>
-    <p>2024.10 gakuseiBOTコミュニティ 設立</p>
-    <p>2024.10 gakuseiBOTコミュニティ 代表</p>
-    <p>2024.10 gakuseiBOTリリース</p>
-    <p>2025.05 NextUnion 傘下グループ設立</p>
-    <p>2025.05 NextUnion 母団体代表</p>
-  </section>
-
-  <section class="section" data-aos="fade-up">
-    <h2>スキル</h2>
-    <div class="skills-list">
-      <div>HTML/CSS</div>
-      <div>JavaScript</div>
-      <div>React</div>
-      <div>Python</div>
-      <div>Flask</div>
-      <div>Node.js</div>
-      <div>TypeScript</div>
-      <div>TailWind CSS</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p>2024.10 — gakuseiBOTコミュニティ 設立</p>
+        <div class="timeline-detail">
+          学生のための学習支援・交流促進を目的としたコミュニティを立ち上げ。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <p>2024.10 — gakuseiBOTコミュニティ 代表</p>
+        <div class="timeline-detail">
+          コミュニティの運営方針策定、BOT開発プロジェクトの統括を担当。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <p>2024.10 — gakuseiBOTリリース</p>
+        <div class="timeline-detail">
+          gakuseiBOTv1.0をリリース。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <p>2025.05 — NextUnion 傘下グループ設立</p>
+      </div>
+      <div class="timeline-item">
+        <p>2025.05 — NextUnion 母団体代表</p>
+        <div class="timeline-detail">
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section" data-aos="fade-up">
+  <!-- 資格 -->
+  <section data-aos="fade-up">
+    <h2>資格</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p>令和4年11月 — 第四級アマチュア無線技士</p>
+        <div class="timeline-detail">
+          無線の世界にはじめて触れた。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <p>令和7年10月 — 第二級陸上特殊無線技士(免許証申請中)</p>
+        <div class="timeline-detail">
+          アマチュア無線以外の無線にも興味を持ち、取得。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- スキル -->
+  <section data-aos="fade-up">
+    <h2>スキル</h2>
+
+    <div class="skills-category">
+      <h3>Languages</h3>
+      <div class="skills-list">
+        <div>HTML/CSS</div>
+        <div>Python</div>
+        <div>TypeScript</div>
+        <div>JMarkdown</div>
+      </div>
+    </div>
+
+    <div class="skills-category">
+      <h3>Frameworks</h3>
+      <div class="skills-list">
+        <div>React</div>
+        <div>TailWind CSS</div>
+        <div>Next.js</div>
+        <div>Firebase</div>
+        <div>JSON<div>
+        <div>Discord.py</div>div>
+        <div>vercel</div>
+        <div>
+    </div>
+  </section>
+
+  <!-- プロジェクト -->
+  <section data-aos="fade-up">
     <h2>プロジェクト</h2>
     <div class="projects">
       <div class="project-card">
-        <h3>gakuseiBOT</h3>
-        <p>勉強 × エンタメ × 便利機能</p>
-        <p>あなたの学生生活に“ちょっとしたスパイス”を加える、多機能BOTの世界へようこそ。</p>
+        <a href="https://example.com/gakuseiBOT" target="_blank">
+          <h3>gakuseiBOT</h3>
+          <p>勉強 × エンタメ × 便利機能</p>
+          <p>あなたの学生生活に“ちょっとしたスパイス”を加える、多機能BOTの世界へようこそ。</p>
+        </a>
       </div>
+    </div>
   </section>
 
-  <section class="section" data-aos="fade-up">
+  <!-- お問い合わせ -->
+  <section data-aos="fade-up">
     <h2>お問い合わせ</h2>
     <p>コラボやお仕事のご依頼はこちらまでお気軽に。</p>
     <p>Email: <a href="mailto:akiy2009_dev@outlook.jp">akiy2009_dev@outlook.jp</a></p>
@@ -154,8 +291,10 @@
     &copy; 2025 Akiy2009 - All rights reserved.
   </footer>
 
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init();
   </script>
+
 </body>
 </html>
