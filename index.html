@@ -2,343 +2,183 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Akiy2009 | Portfolio</title>
-  <meta name="description" content="学生フルスタックエンジニア Akiy2009 のポートフォリオサイト。創造的な開発とコミュニティ運営を中心に活動しています。" />
+  <meta name="description" content="学生フルスタックエンジニア Akiy2009 のポートフォリオサイト" />
+
+  <!-- Inter (SIL Open Font License) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top left, #0f172a 0%, #0d1117 70%);
-      color: #e5e7eb;
-      scroll-behavior: smooth;
-      line-height: 1.7;
-    }
-
-    header {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 30% 50%, rgba(59,130,246,0.15), transparent 70%);
-      animation: glow 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { opacity: 0.4; transform: scale(1); }
-      to { opacity: 0.8; transform: scale(1.1); }
-    }
-
-    header h1 {
-      font-size: 3.8rem;
-      font-weight: 700;
-      color: #fff;
-      z-index: 1;
-    }
-
+    body { font-family: 'Inter', sans-serif; }
     .typing {
-      font-size: 1.3rem;
-      color: #9ca3af;
-      margin-top: 1rem;
-      border-right: 2px solid #9ca3af;
+      border-right: 3px solid #666;
       white-space: nowrap;
       overflow: hidden;
       width: 0;
-      animation: typing 4s steps(30, end) forwards, blink 1s infinite;
-      z-index: 1;
+      animation: typing 3.8s steps(28, end) forwards, blink 1s infinite;
     }
-
     @keyframes typing { from { width: 0 } to { width: 20em } }
     @keyframes blink { 50% { border-color: transparent } }
-
-    .hero-links {
-      margin-top: 2rem;
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .hero-links a {
-      background: #2563eb;
-      color: white;
-      padding: 12px 28px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: 0.3s;
-      font-weight: 600;
-    }
-
-    .hero-links a:hover {
-      background: #1e40af;
-      transform: translateY(-3px);
-    }
-
-    section {
-      padding: 80px 20px;
-      max-width: 960px;
-      margin: auto;
-    }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 40px;
-      color: #f3f4f6;
-      position: relative;
-    }
-
-    h2::after {
-      content: "";
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: #3b82f6;
-      border-radius: 2px;
-    }
-
-    p { color: #cbd5e1; }
-
-    /* タイムライン */
-    .timeline {
-      position: relative;
-      margin-left: 20px;
-      padding-left: 20px;
-      border-left: 4px solid #3b82f6;
-    }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 40px;
-      padding-left: 20px;
-    }
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -12px;
-      top: 0;
-      width: 12px;
-      height: 12px;
-      background: #3b82f6;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #3b82f6;
-    }
-    .timeline-detail {
-      margin-top: 10px;
-      margin-left: 25px;
-      border-left: 2px solid #3b82f6;
-      padding-left: 15px;
-      color: #cbd5e1;
-      font-size: 0.95rem;
-    }
-
-    /* スキル */
-    .skills-category { margin-bottom: 40px; }
-    .skills-category h3 {
-      font-size: 1.3rem;
-      color: #93c5fd;
-      margin-bottom: 16px;
-    }
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .skills-list div {
-      background: #1f2937;
-      border: 1px solid #374151;
-      padding: 10px 16px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-    .skills-list div:hover {
-      background: #2563eb;
-      color: #fff;
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-    }
-
-    /* プロジェクトカード */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-    .project-card {
-      background: #111827;
-      border: 1px solid #1f2937;
-      padding: 24px;
-      border-radius: 12px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
-    }
-    .project-card a {
-      color: inherit;
-      text-decoration: none;
-      display: block;
-      height: 100%;
-      width: 100%;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      background-color: #111827;
-      font-size: 0.9rem;
-      color: #9ca3af;
-    }
-
-    a { color: #60a5fa; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* メディア対応 */
-    @media (max-width: 768px) {
-      header h1 { font-size: 2.6rem; }
-      .typing { font-size: 1rem; }
-      .hero-links { flex-direction: column; }
-      .hero-links a { width: 80%; }
-    }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Akiy2009</h1>
-    <p class="typing">Full Stack Engineer | Creative Developer</p>
+
+<body class="bg-white text-gray-800">
+
+  <!-- HERO -->
+  <header class="min-h-screen flex flex-col justify-center items-center text-center px-4 bg-gradient-to-b from-white to-gray-100 relative overflow-hidden">
+    <h1 class="text-5xl font-bold text-gray-900">Akiy2009</h1>
+    <p class="typing mt-4 text-lg text-gray-500">Full Stack Engineer | Creative Developer</p>
+
+    <div class="flex gap-4 mt-8">
+      <a href="#projects" class="px-6 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 shadow">
+        プロジェクト
+      </a>
+      <a href="#contact" class="px-6 py-3 border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100">
+        お問い合わせ
+      </a>
+    </div>
   </header>
 
-  <section data-aos="fade-up">
-    <h2>自己紹介</h2>
-    <p>
+  <!-- INTRO -->
+  <section data-aos="fade-up" class="max-w-3xl mx-auto py-20 px-4">
+    <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">自己紹介</h2>
+    <p class="text-gray-600 leading-relaxed">
       学生という立場を活かし、技術・運営・コミュニティの3軸で活動しています。
       特に、Discordを中心に学習支援と交流促進を目的とした「gakuseiBOTコミュニティ」を設立し、
       自作BOTやWebアプリを通して、より良い学生環境の構築に取り組んでいます。
     </p>
   </section>
 
-  <section data-aos="fade-up">
-    <h2>経歴</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <p>2024.10 — gakuseiBOTコミュニティ 設立</p>
-        <div class="timeline-detail">
-          学生のための学習支援・交流促進を目的としたコミュニティを立ち上げ。
+  <!-- TIMELINE -->
+  <section data-aos="fade-up" class="max-w-3xl mx-auto py-20 px-4">
+    <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">経歴</h2>
+
+    <div class="border-l-4 border-blue-500 pl-6 space-y-10">
+      <div>
+        <p class="font-semibold">2024.10 — gakuseiBOTコミュニティ 設立</p>
+        <p class="text-gray-500 mt-2 ml-4 border-l pl-3">学生向け学習支援コミュニティを立ち上げ。</p>
+      </div>
+      <div>
+        <p class="font-semibold">2024.10 — gakuseiBOTリリース</p>
+        <p class="text-gray-500 mt-2 ml-4 border-l pl-3">gakuseiBOT v1.0 を正式公開。</p>
+      </div>
+      <div>
+        <p class="font-semibold">2025.05 — NextUnion 設立</p>
+        <p class="text-gray-500 mt-2 ml-4 border-l pl-3">「NextUnion」創設 & 代表就任。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALIFICATION -->
+  <section data-aos="fade-up" class="max-w-3xl mx-auto py-20 px-4">
+    <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">資格</h2>
+
+    <div class="border-l-4 border-blue-500 pl-6 space-y-10">
+      <div>
+        <p class="font-semibold">令和4年11月 — 第四級アマチュア無線技士</p>
+        <p class="text-gray-500 mt-2 ml-4 border-l pl-3">無線の入り口となった資格。</p>
+      </div>
+      <div>
+        <p class="font-semibold">令和7年10月 — 第二級陸上特殊無線技士</p>
+        <p class="text-gray-500 mt-2 ml-4 border-l pl-3">より広い無線分野へのステップアップ。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section data-aos="fade-up" class="max-w-4xl mx-auto py-20 px-4">
+    <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">スキル</h2>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <div>
+        <h3 class="text-xl font-semibold text-blue-600 mb-4">Languages</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">HTML/CSS</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">Python</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">TypeScript</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">Markdown</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <p>2024.10 — gakuseiBOTリリース</p>
-        <div class="timeline-detail">gakuseiBOT v1.0を正式公開。</div>
-      </div>
-      <div class="timeline-item">
-        <p>2025.05 — NextUnion 設立</p>
-        <div class="timeline-detail">
-          「NextUnion」を創設し、母体代表に就任。
+
+      <div>
+        <h3 class="text-xl font-semibold text-blue-600 mb-4">Frameworks</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">React</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">Tailwind CSS</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">Next.js</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">Firebase</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">Discord.py</span>
+          <span class="px-4 py-2 bg-gray-100 rounded-md shadow-sm">Vercel</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section data-aos="fade-up">
-    <h2>資格</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <p>令和4年11月 — 第四級アマチュア無線技士</p>
-        <div class="timeline-detail">無線の世界に初めて触れた資格。</div>
-      </div>
-      <div class="timeline-item">
-        <p>令和7年10月 — 第二級陸上特殊無線技士</p>
-        <div class="timeline-detail">より広い無線分野への興味を深め、取得。</div>
-      </div>
+  <!-- PROJECTS -->
+  <section data-aos="fade-up" id="projects" class="max-w-5xl mx-auto py-20 px-4">
+    <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">プロジェクト</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- 1 -->
+      <a href="https://gakuseibot.com" target="_blank"
+         class="p-6 bg-white rounded-xl shadow hover:shadow-xl transition block">
+        <h3 class="text-xl font-bold">gakuseiBOT</h3>
+        <p class="mt-2 text-gray-600">勉強 × エンタメ × 便利機能</p>
+        <p class="text-gray-500 text-sm mt-1">学生生活に“スパイス”を加えるBOT。</p>
+      </a>
+
+      <!-- 2 -->
+      <a href="https://chromewebstore.google.com/detail/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%A1%E3%83%A2/ojbpgbkilkpejjgdehobgafkiabljhpp"
+         target="_blank" class="p-6 bg-white rounded-xl shadow hover:shadow-xl transition block">
+        <h3 class="text-xl font-bold">ページメモ</h3>
+        <p class="mt-2 text-gray-600">Chrome拡張</p>
+        <p class="text-gray-500 text-sm mt-1">サイトを見ながらメモをすぐ残せる拡張。</p>
+      </a>
+
+      <!-- 3 -->
+      <a href="https://chromewebstore.google.com/detail/tab-auto-grouper/aljeplbhjoadamjlnbfinhnndlfiimoo"
+         target="_blank" class="p-6 bg-white rounded-xl shadow hover:shadow-xl transition block">
+        <h3 class="text-xl font-bold">Tab Auto Grouper</h3>
+        <p class="mt-2 text-gray-600">Chrome拡張</p>
+        <p class="text-gray-500 text-sm mt-1">散らかるタブを自動整理。</p>
+      </a>
+
+      <!-- 4 -->
+      <a href="https://www.nextunion.jp" target="_blank"
+         class="p-6 bg-white rounded-xl shadow hover:shadow-xl transition block">
+        <h3 class="text-xl font-bold">nextunion</h3>
+        <p class="mt-2 text-gray-600">準備中</p>
+        <p class="text-gray-500 text-sm mt-1">詳細はリンク先へ。</p>
+      </a>
     </div>
   </section>
 
-  <section data-aos="fade-up" id="skills">
-    <h2>スキル</h2>
-
-    <div class="skills-category">
-      <h3>Languages</h3>
-      <div class="skills-list">
-        <div>HTML/CSS</div>
-        <div>Python</div>
-        <div>TypeScript</div>
-        <div>Markdown</div>
-      </div>
-    </div>
-
-    <div class="skills-category">
-      <h3>Frameworks</h3>
-      <div class="skills-list">
-        <div>React</div>
-        <div>Tailwind CSS</div>
-        <div>Next.js</div>
-        <div>Firebase</div>
-        <div>Discord.py</div>
-        <div>Vercel</div>
-      </div>
-    </div>
+  <!-- CONTACT -->
+  <section data-aos="fade-up" id="contact" class="max-w-3xl mx-auto py-20 px-4">
+    <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">お問い合わせ</h2>
+    <p class="text-center text-gray-600">コラボやお仕事のご依頼はこちらへ。</p>
+    <p class="text-center mt-4">
+      <a href="mailto:akiy2009_dev@outlook.jp" class="text-blue-600 hover:underline">
+        akiy2009_dev@outlook.jp
+      </a>
+    </p>
   </section>
 
-  <section data-aos="fade-up" id="projects">
-    <h2>プロジェクト</h2>
-    <div class="projects">
-      <div class="project-card">
-        <a href="https://gakuseibot.com" target="_blank">
-          <h3>gakuseiBOT</h3>
-          <p>勉強 × エンタメ × 便利機能</p>
-          <p>学生生活に“ちょっとしたスパイス”を加える多機能BOT。(詳細はクリック先)</p>
-        </a>
-      </div>
-      <div class="project-card">
-        <a href="https://chromewebstore.google.com/detail/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%A1%E3%83%A2/ojbpgbkilkpejjgdehobgafkiabljhpp" target="_blank">
-          <h3>ページメモ</h3>
-          <p>chromeの拡張機能</p>
-          <p>サイトを見ていてメモしたいことがある！！そんな方へ！！ぜひ一度使ってみてください。(詳細はクリック先)</p>
-        </a>
-      </div>
-      <div class="project-card">
-        <a href="https://chromewebstore.google.com/detail/tab-auto-grouper/aljeplbhjoadamjlnbfinhnndlfiimoo?authuser=0&hl=ja" target="_blank">
-          <h3>Tab Auto Grouper</h3>
-          <p>chromeの拡張機能</p>
-          <p>タブが多すぎてさっき調べていたサイトが見つけられない！！そんな時は自動でタブを整理することができる拡張機能を使ってみよう！(詳細はクリック先)</p>
-        </a>
-      </div>
-      <div class="project-card">
-        <a href="https://www.nextunion.jp" target="_blank">
-          <h3>nextunion</h3>
-          <p>準備中</p>
-          <p>準備中です。(詳細はクリック先)</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section data-aos="fade-up" id="contact">
-    <h2>お問い合わせ</h2>
-    <p>コラボやお仕事のご依頼はこちらまでお気軽に。</p>
-    <p>Email: <a href="mailto:akiy2009_dev@outlook.jp">akiy2009_dev@outlook.jp</a></p>
-  </section>
-
-  <footer>
+  <!-- FOOTER -->
+  <footer class="text-center py-10 bg-gray-100 text-sm text-gray-600">
     &copy; 2025 Akiy2009 - All rights reserved.
   </footer>
 
+  <!-- AOS init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration: 800, once: true });</script>
+
 </body>
 </html>
