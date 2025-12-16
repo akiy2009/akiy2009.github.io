@@ -1,157 +1,158 @@
-<!DOCTYPE html>
-<html lang="ja" class="light">
+<!doctype html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Akiy2009 | Portfolio</title>
-  <meta name="description" content="学生フルスタックエンジニア Akiy2009 のポートフォリオサイト。" />
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <title>香川高等専門学校　高松キャンパス</title>
+  <meta name="description" content="気象観測機器コンテスト発表スライド" />
+  <meta property="og:title" content="香川高専　高松キャンパス　A班" />
+  <meta property="og:description" content="このサイトは香川高専高松キャンパスの気象観測機器コンテストA班のスライド資料です。" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>フォルダスライド（完成版）</title>
 
   <style>
-    /* アニメーション */
-    .fade-up { opacity: 0; transform: translateY(25px); transition: all .9s ease; }
-    .fade-up.show { opacity: 1; transform: translateY(0); }
-
-    .zoom-in { opacity: 0; transform: scale(.95); transition: all .8s ease; }
-    .zoom-in.show { opacity: 1; transform: scale(1); }
-
-    /* タイピング */
-    .typing {
-      width: 0;
+    html, body {
+      margin: 0;
+      height: 100%;
       overflow: hidden;
-      white-space: nowrap;
-      border-right: 2px solid #999;
-      animation: typing 3s steps(30,end) forwards, blink 1s infinite;
+      background: #000;
     }
-    @keyframes typing { from {width:0} to {width: 18em} }
-    @keyframes blink { 50% { border-color: transparent; } }
+
+    #slides-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* 各スライドの iframe */
+    .slide-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      background: #000;
+      transform: translateX(100%);
+      transition: transform 0.45s ease;
+    }
+
+    .slide-frame.current { transform: translateX(0); }
+    .slide-frame.left    { transform: translateX(-100%); }
+
+    /* インジケータ（左下の番号表示） */
+    #indicator {
+      position: fixed;
+      bottom: 12px;
+      right: 16px;
+      font-size: 13px;
+      color: #fff;
+      opacity: 0.75;
+      z-index: 9999;
+      user-select: none;
+    }
   </style>
 </head>
+<body>
 
-<body class="bg-white text-gray-800 transition-colors duration-300 dark:bg-[#0d1117] dark:text-gray-200">
+  <div id="slides-container"></div>
+  <div id="indicator">読み込み中...</div>
 
-<header class="min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
-  <h1 class="text-5xl font-bold zoom-in">Akiy2009</h1>
-  <p class="typing text-lg mt-4 text-gray-500 dark:text-gray-400">
-    Full Stack Engineer | Creative Developer
-  </p>
-</header>
+  <script>
+    // ---------------------------------------------
+    // スライドファイル一覧（ここに追加するだけ）
+    // ---------------------------------------------
+    const FILE_LIST = [
+      "slides/001.html",
+      "slides/002.html",
+      "slides/003.html",
+      // 必要なら増やすだけ
+      // "slides/004.html",
+      // "slides/005.html",
+    ];
 
-<section class="max-w-3xl mx-auto px-6 py-20 fade-up">
-  <h2 class="text-3xl font-semibold text-center mb-10">自己紹介</h2>
-  <p>
-    学生という立場を活かし、技術・運営・コミュニティの3軸で活動しています。
-    特に、Discordを中心に学習支援と交流促進を目的とした「gakuseiBOTコミュニティ」を設立し、
-    自作BOTやWebアプリを通して、より良い学生環境の構築に取り組んでいます。
-  </p>
-</section>
+    const container = document.getElementById("slides-container");
+    const frames = [];
+    let index = 0;
 
-<section class="max-w-3xl mx-auto px-6 py-20 fade-up">
-  <h2 class="text-3xl font-semibold text-center mb-10">経歴</h2>
-  <div class="border-l-4 border-blue-500 pl-6 space-y-8">
-    <div>
-      <p class="font-medium">2024.10 — gakuseiBOTコミュニティ 設立</p>
-      <p class="ml-3 text-sm border-l-2 border-blue-400 pl-3 mt-2">
-        学生のための学習支援・交流促進を目的としたコミュニティを立ち上げ。
-      </p>
-    </div>
-    <div>
-      <p class="font-medium">2024.10 — gakuseiBOTリリース</p>
-      <p class="ml-3 text-sm border-l-2 border-blue-400 pl-3 mt-2">gakuseiBOT v1.0を正式公開。</p>
-    </div>
-    <div>
-      <p class="font-medium">2025.05 — NextUnion 設立</p>
-      <p class="ml-3 text-sm border-l-2 border-blue-400 pl-3 mt-2">「NextUnion」を創設し、母体代表に就任。</p>
-    </div>
-  </div>
-</section>
+    // ---------------------------------------------
+    // スライド読み込み
+    // ---------------------------------------------
+    function loadSlides() {
+      FILE_LIST.forEach(src => {
+        const f = document.createElement("iframe");
+        f.className = "slide-frame";
+        f.src = src;
+        container.appendChild(f);
+        frames.push(f);
+      });
+      updateSlidePosition();
+    }
 
-<section class="max-w-3xl mx-auto px-6 py-20 fade-up" id="skills">
-  <h2 class="text-3xl font-semibold text-center mb-10">スキル</h2>
+    // ---------------------------------------------
+    // スライドの位置更新
+    // ---------------------------------------------
+    function updateSlidePosition() {
+      frames.forEach((f, i) => {
+        f.classList.remove("current", "left");
+        if (i === index) f.classList.add("current");
+        if (i < index)   f.classList.add("left");
+      });
 
-  <h3 class="text-xl font-medium text-blue-600 dark:text-blue-300 mb-4">Languages</h3>
-  <div class="flex flex-wrap gap-3 mb-10">
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">HTML/CSS</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">Python</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">TypeScript</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">Markdown</div>
-  </div>
+      document.getElementById("indicator").textContent =
+        `${index + 1} / ${frames.length}`;
+    }
 
-  <h3 class="text-xl font-medium text-blue-600 dark:text-blue-300 mb-4">Frameworks</h3>
-  <div class="flex flex-wrap gap-3">
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">React</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">Tailwind CSS</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">Next.js</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">Firebase</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">Discord.py</div>
-    <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded shadow">Vercel</div>
-  </div>
-</section>
+    // ---------------------------------------------
+    // 次へ / 前へ
+    // ---------------------------------------------
+    function next() {
+      if (index < frames.length - 1) {
+        index++;
+        updateSlidePosition();
+      }
+    }
 
-<section class="max-w-5xl mx-auto px-6 py-20 fade-up">
-  <h2 class="text-3xl font-semibold text-center mb-10">プロジェクト</h2>
+    function prev() {
+      if (index > 0) {
+        index--;
+        updateSlidePosition();
+      }
+    }
 
-  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <a class="block p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow hover:-translate-y-2 transition"
-       href="https://gakuseibot.com" target="_blank">
-      <h3 class="font-bold text-xl">gakuseiBOT</h3>
-      <p class="text-sm mt-2">勉強 × エンタメ × 便利機能</p>
-      <p class="text-sm opacity-70 mt-1">学生生活にスパイスを。</p>
-    </a>
+    // ---------------------------------------------
+    // キー操作
+    // ---------------------------------------------
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") next();
+      if (e.key === "ArrowLeft"  || e.key === "PageUp") prev();
+    });
 
-    <a class="block p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow hover:-translate-y-2 transition"
-       href="https://chromewebstore.google.com/detail/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%A1%E3%83%A2/ojbpgbkilkpejjgdehobgafkiabljhpp"
-       target="_blank">
-      <h3 class="font-bold text-xl">ページメモ</h3>
-      <p class="text-sm mt-2">Chrome拡張機能</p>
-    </a>
+    // ---------------------------------------------
+    // クリックで次へ
+    // ---------------------------------------------
+    window.addEventListener("click", e => {
+      if (!e.target.closest("a")) next();
+    });
 
-    <a class="block p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow hover:-translate-y-2 transition"
-       href="https://chromewebstore.google.com/detail/tab-auto-grouper/aljeplbhjoadamjlnbfinhnndlfiimoo"
-       target="_blank">
-      <h3 class="font-bold text-xl">Tab Auto Grouper</h3>
-      <p class="text-sm mt-2">Chrome拡張機能</p>
-    </a>
+    // ---------------------------------------------
+    // スワイプ操作
+    // ---------------------------------------------
+    let startX = 0;
+    window.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
 
-    <a class="block p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow hover:-translate-y-2 transition"
-       href="https://www.nextunion.jp" target="_blank">
-      <h3 class="font-bold text-xl">NextUnion</h3>
-      <p class="text-sm mt-2">準備中</p>
-    </a>
-  </div>
-</section>
+    window.addEventListener("touchend", e => {
+      const endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) next();
+      if (endX - startX > 50) prev();
+    });
 
-<section class="max-w-3xl mx-auto px-6 py-20 fade-up" id="contact">
-  <h2 class="text-3xl font-semibold text-center mb-10">お問い合わせ</h2>
-  <p class="text-center">コラボや依頼はこちらまで。</p>
-  <p class="text-center mt-2">
-    Email:
-    <a class="text-blue-600 dark:text-blue-400"
-       href="mailto:akiy2009_dev@outlook.jp">akiy2009_dev@outlook.jp</a>
-  </p>
-</section>
-
-<footer class="text-center py-10 text-sm opacity-60">
-  &copy; 2025 Akiy2009 - All rights reserved.
-</footer>
-
-<script>
-  // フェードアニメーション
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll(".fade-up, .zoom-in").forEach(el => observer.observe(el));
-
-  // テーマ切替
-  const btn = document.getElementById("themeToggle");
-  btn.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-    btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
-  });
-</script>
+    // ---------------------------------------------
+    // 実行
+    // ---------------------------------------------
+    loadSlides();
+  </script>
 
 </body>
 </html>
