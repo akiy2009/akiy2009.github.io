@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Solar Flare Monitoring System　デモ</title>
+  <meta name="description" content="気象観測機器コンテストデモサイト" />
+  <meta property="og:title" content="香川高専　高松キャンパス　A班" />
+  <meta property="og:description" content="このサイトは香川高専高松キャンパスの気象観測機器コンテストA班のデモサイトです。" />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f3f5f7;
+    color: #1b1b1b;
+  }
+
+  header {
+    background: #0c1f33;
+    color: #fff;
+    padding: 24px 32px;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 24px;
+  }
+
+  .panel {
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .panel h2 {
+    margin-top: 0;
+    font-size: 18px;
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 8px;
+  }
+
+  .status {
+    font-size: 16px;
+    margin-top: 12px;
+  }
+
+  .meta {
+    font-size: 13px;
+    color: #555;
+    margin-top: 6px;
+  }
+
+  .warning {
+    margin-top: 12px;
+    padding: 12px;
+    border-left: 4px solid #c62828;
+    background: #fdecea;
+    color: #7f0000;
+    display: none;
+  }
+
+  .controls {
+    margin-top: 16px;
+  }
+
+  button {
+    padding: 8px 14px;
+    font-size: 13px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    padding: 24px;
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Solar Flare Monitoring System (Mock Data)</h1>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Current Solar Activity</h2>
+    <div id="flareLevel" class="status"></div>
+    <div id="updateTime" class="meta"></div>
+
+    <div id="warningBox" class="warning"></div>
+
+    <div class="controls">
+      <button onclick="downloadCSV()">Download CSV</button>
+      <button onclick="testWarning()">Test Warning</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>X-ray Flux (Mock, last 24 hours)</h2>
+    <canvas id="xrayChart" height="120"></canvas>
+  </section>
+</main>
+
+<footer>
+  Mock data only. Not real solar observation data.
+</footer>
+
+<script>
+  let chart = null;
+  let mockData = [];
+
+  function classifyFlare(value) {
+    if (value >= 1e-4) return "X";
+    if (value >= 1e-5) return "M";
+    if (value >= 1e-6) return "C";
+    if (value >= 1e-7) return "B";
+    return "A";
+  }
+
+  function showWarning(message) {
+    const box = document.getElementById("warningBox");
+    box.textContent = message;
+    box.style.display = "block";
+  }
+
+  function hideWarning() {
+    document.getElementById("warningBox").style.display = "none";
+  }
+
+  function testWarning() {
+    showWarning("TEST WARNING: Simulated X-class solar flare event.");
+  }
+
+  function generateMockData() {
+    const now = Date.now();
+    const data = [];
+
+    let base = 5e-8;
+
+    for (let i = 144; i >= 0; i--) {
+      // ランダムにフレアを発生させる
+      if (Math.random() < 0.03) {
+        base = Math.random() < 0.5 ? 5e-6 : 2e-4; // C or X
+      } else {
+        base *= 0.9 + Math.random() * 0.2;
+      }
+
+      data.push({
+        time: new Date(now - i * 10 * 60 * 1000),
+        flux: Math.max(base, 1e-9)
+      });
+    }
+
+    return data;
+  }
+
+  function updateUI() {
+    const times = mockData.map(d => d.time.toLocaleTimeString());
+    const flux = mockData.map(d => d.flux);
+
+    const latest = mockData[mockData.length - 1];
+    const flareClass = classifyFlare(latest.flux);
+
+    document.getElementById("flareLevel").textContent =
+      `Current level: ${flareClass}-class (${latest.flux.toExponential(2)} W/m²)`;
+
+    document.getElementById("updateTime").textContent =
+      "Last update: " + new Date().toLocaleString();
+
+    if (flareClass === "M" || flareClass === "X") {
+      showWarning(`WARNING: ${flareClass}-class solar flare activity detected.`);
+    } else {
+      hideWarning();
+    }
+
+    if (!chart) {
+      chart = new Chart(
+        document.getElementById("xrayChart").getContext("2d"),
+        {
+          type: "line",
+          data: {
+            labels: times,
+            datasets: [{
+              label: "X-ray Flux (Mock)",
+              data: flux,
+              borderWidth: 1.5,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                type: "logarithmic",
+                title: { display: true, text: "W/m²" }
+              }
+            }
+          }
+        }
+      );
+    } else {
+      chart.data.labels = times;
+      chart.data.datasets[0].data = flux;
+      chart.update();
+    }
+  }
+
+  function downloadCSV() {
+    let csv = "time,flux_primary\n";
+    mockData.forEach(d => {
+      csv += `${d.time.toISOString()},${d.flux}\n`;
+    });
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mock_solar_xray_flux.csv";
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
+
+  function refreshMock() {
+    mockData = generateMockData();
+    updateUI();
+  }
+
+  refreshMock();
+  setInterval(refreshMock, 6000);
+</script>
+</body>
+</html>
