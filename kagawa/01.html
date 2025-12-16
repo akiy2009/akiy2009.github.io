@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>研究背景</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    body {
+        font-family: 'Noto Sans JP', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8fafc; /* Slate-50 */
+        color: #1e293b; /* Slate-800 */
+    }
+    .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+    }
+    .header {
+        background-color: #0f172a; /* Slate-900 */
+        color: #ffffff;
+        padding: 1.5rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+    .header-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .header-logo {
+        font-size: 1rem;
+        opacity: 0.9;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+    }
+    .main-content {
+        flex: 1;
+        display: flex;
+        padding: 3rem 4rem;
+        gap: 4rem;
+        background-color: #ffffff;
+        position: relative;
+    }
+    .bg-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+        background-size: 24px 24px;
+        opacity: 0.3;
+        z-index: 0;
+    }
+    .content-left {
+        flex: 3;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.25rem;
+    }
+    .content-right {
+        flex: 2;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .bullet-card {
+        background-color: #ffffff;
+        border-left: 6px solid #3b82f6;
+        padding: 1.25rem 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        border-radius: 0.5rem;
+        border-top: 1px solid #f1f5f9;
+        border-right: 1px solid #f1f5f9;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .bullet-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .bullet-text {
+        font-size: 1.05rem;
+        color: #475569;
+        margin: 0;
+        line-height: 1.6;
+        padding-left: 2.15rem; /* Icon width + gap */
+        text-align: justify;
+    }
+    .impact-box {
+        background-color: #f0f9ff;
+        border: 2px solid #bae6fd;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        width: 100%;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
+    .impact-icon {
+        font-size: 2.5rem;
+        color: #0284c7;
+    }
+    .impact-label {
+        font-weight: 700;
+        color: #0369a1;
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+    }
+    .arrow-down {
+        text-align: center;
+        color: #94a3b8;
+        font-size: 2rem;
+        margin: 0.5rem 0;
+    }
+    .problem-box {
+        background-color: #fff1f2;
+        border: 2px solid #fecdd3;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        width: 100%;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
+    .problem-icon {
+        font-size: 2.5rem;
+        color: #e11d48;
+    }
+    .solution-box {
+        background-color: #1d4ed8;
+        color: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        width: 100%;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        overflow: hidden;
+    }
+    /* Custom bullet icons */
+    .fa-sun { color: #fbbf24; }
+    .fa-network-wired { color: #3b82f6; }
+    .fa-shield-halved { color: #10b981; }
+    .fa-triangle-exclamation { color: #ef4444; }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="header">
+<h1 class="header-title">
+<i class="fas fa-solar-system text-blue-400" style="font-size: 1.8rem;"></i> 研究背景：太陽フレアと社会的影響
+        </h1>
+<p class="header-logo">香川高等専門学校 宇宙開発研究部</p>
+</div>
+<div class="main-content">
+<div class="bg-pattern"></div>
+<div class="content-left">
+<div class="bullet-card">
+<p class="bullet-title">
+<i class="fas fa-sun"></i>
+                    太陽フレアの脅威
+                </p>
+<p class="bullet-text">
+                    太陽表面での大規模な爆発現象により、X線や高エネルギー粒子が放出されます。これらは地球の磁場や大気圏に影響し、通信障害（デリンジャー現象）、人工衛星の誤作動、電力網の停電を引き起こす要因となります。
+                </p>
+</div>
+<div class="bullet-card">
+<p class="bullet-title">
+<i class="fas fa-network-wired"></i>
+                    社会インフラの脆弱性
+                </p>
+<p class="bullet-text">
+                    高度に電子化された現代社会において、GPS、航空無線、インターネット通信網への依存は高まる一方です。太陽活動によるシステムダウンは、日常生活や経済活動に深刻な打撃を与えるリスクがあります。
+                </p>
+</div>
+<div class="bullet-card">
+<p class="bullet-title">
+<i class="fas fa-shield-halved"></i>
+                    レジリエンス向上の必要性
+                </p>
+<p class="bullet-text">
+                    社会インフラの信頼性を維持するためには、太陽フレアの正確な観測と予測が不可欠です。事前に影響を評価し、リスクを軽減する体制づくり（レジリエンス向上）が急務となっています。
+                </p>
+</div>
+<div class="bullet-card" style="border-left-color: #ef4444;">
+<p class="bullet-title">
+<i class="fas fa-triangle-exclamation"></i>
+                    従来の観測体制の課題
+                </p>
+<p class="bullet-text">
+                    現状の観測は、NOAA等の専門機関や大型衛星に依存しており、観測拠点が限定的です。そのため、個人や教育機関による広範囲・分散的なデータ収集が難しく、リアルタイムな局所的リスク評価に課題があります。
+                </p>
+</div>
+</div>
+<div class="content-right">
+<div class="w-full h-full flex flex-col justify-center items-center">
+<!-- Impact Targets -->
+<div class="impact-box">
+<div class="flex justify-center gap-6 mb-2">
+<i class="fas fa-satellite impact-icon"></i>
+<i class="fas fa-tower-cell impact-icon"></i>
+<i class="fas fa-bolt impact-icon"></i>
+</div>
+<p class="impact-label">深刻な社会リスク</p>
+<p class="text-slate-600 text-sm mt-1">通信障害・衛星故障・大規模停電</p>
+</div>
+<div class="arrow-down">
+<i class="fas fa-arrow-down"></i>
+</div>
+<!-- Current Limitation -->
+<div class="problem-box">
+<div class="flex justify-center gap-4 mb-2">
+<i class="fas fa-building-columns problem-icon"></i>
+<i class="fas fa-ban problem-icon" style="opacity: 0.5; font-size: 1.5rem; align-self: center;"></i>
+<i class="fas fa-users problem-icon" style="color: #94a3b8;"></i>
+</div>
+<p class="text-lg font-bold text-rose-800 mt-1">観測の局所性・専門性</p>
+<p class="text-rose-600 text-sm">市民レベルでの観測が困難</p>
+</div>
+<div class="arrow-down">
+<i class="fas fa-arrow-down"></i>
+</div>
+<!-- Solution Preview -->
+<div class="solution-box">
+<div class="absolute -top-6 -right-6 w-20 h-20 bg-blue-400 rounded-full opacity-20"></div>
+<div class="absolute -bottom-6 -left-6 w-20 h-20 bg-blue-400 rounded-full opacity-20"></div>
+<div class="flex flex-col items-center gap-2 relative z-10">
+<i class="fas fa-microchip text-4xl text-yellow-300 mb-1"></i>
+<p class="text-xl font-bold border-b-2 border-blue-300 pb-1 mb-1">本研究のアプローチ</p>
+<p class="text-blue-100 text-sm font-medium">小型・安価な装置による<br/>分散型観測ネットワークの構築</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

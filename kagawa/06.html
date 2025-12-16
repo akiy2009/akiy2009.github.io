@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>実証実験：成層圏気球による観測</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    body {
+        font-family: 'Noto Sans JP', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+    }
+    .header {
+        background-color: #0f172a;
+        color: #ffffff;
+        padding: 1rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 90px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+    .header-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .header-logo {
+        font-size: 1rem;
+        opacity: 0.9;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+    }
+    .main-content {
+        flex: 1;
+        display: flex;
+        padding: 2.5rem 3rem;
+        gap: 3rem;
+        background-color: #ffffff;
+        position: relative;
+        align-items: center;
+    }
+    .bg-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Simple pattern replacement for gradient */
+        background-color: #f8fafc;
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23cbd5e1' fill-opacity='0.4'/%3E%3C/svg%3E");
+        opacity: 0.5;
+        z-index: 0;
+    }
+    
+    /* Left Column: Image */
+    .content-left {
+        flex: 1.1;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .image-container {
+        width: 100%;
+        height: 480px;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border: 4px solid #ffffff;
+        position: relative;
+    }
+    .main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .image-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(15, 23, 42, 0.85);
+        color: white;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        backdrop-filter: blur(4px);
+    }
+
+    /* Right Column: Text Content */
+    .content-right {
+        flex: 1;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    .experiment-card {
+        background-color: #ffffff;
+        border-left: 6px solid #3b82f6;
+        padding: 1.25rem 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border-radius: 0.5rem;
+        border: 1px solid #e2e8f0;
+        border-left-width: 6px;
+    }
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .card-text {
+        font-size: 1rem;
+        color: #475569;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    /* Method Steps */
+    .steps-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        background-color: #f0f9ff;
+        padding: 1.25rem;
+        border-radius: 0.75rem;
+        border: 1px solid #bae6fd;
+    }
+    .step-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .step-number {
+        background-color: #0ea5e9;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+    .step-content {
+        font-weight: 500;
+        color: #0369a1;
+        font-size: 1rem;
+    }
+
+    /* Icons */
+    .icon-method { color: #3b82f6; }
+    .icon-altitude { color: #8b5cf6; }
+    .icon-data { color: #10b981; }
+
+    /* Highlights */
+    .highlight-tag {
+        display: inline-block;
+        background-color: #dbeafe;
+        color: #1e40af;
+        padding: 0.1rem 0.4rem;
+        border-radius: 0.25rem;
+        font-weight: 700;
+        font-size: 0.9em;
+        margin: 0 0.1rem;
+    }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="header">
+<h1 class="header-title">
+<i class="fas fa-rocket text-blue-400"></i> 実証実験：成層圏気球による観測
+        </h1>
+<p class="header-logo">香川高等専門学校 宇宙開発研究部</p>
+</div>
+<div class="main-content">
+<div class="bg-pattern"></div>
+<!-- Left Column: Image -->
+<div class="content-left">
+<div class="image-container">
+<img alt="成層圏気球打ち上げの様子" class="main-image" src="https://www.genspark.ai/api/files/s/0gC2Y%2BkS7hfeqaRk?cache_control=3600"/>
+<div class="image-caption">
+<p><i class="fas fa-camera mr-2"></i>図2-1 成層圏気球打ち上げ実験の様子</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Text Content -->
+<div class="content-right">
+<!-- Experiment Overview -->
+<div class="experiment-card" style="border-left-color: #3b82f6;">
+<p class="card-title">
+<i class="fas fa-flask icon-method"></i>
+                    実験概要
+                </p>
+<p class="card-text">
+                    ヘリウムガスを充填した気球にペイロード（観測装置）を懸架し、地上から成層圏環境へ放球。宇宙線やX線の影響を強く受ける高高度環境下での動作検証を行います。
+                </p>
+</div>
+<!-- Target Altitude -->
+<div class="experiment-card" style="border-left-color: #8b5cf6;">
+<p class="card-title">
+<i class="fas fa-cloud-upload-alt icon-altitude"></i>
+                    目標高度と環境
+                </p>
+<p class="card-text">
+                    到達目標は<span class="highlight-tag">高度約30 km</span>。この領域は地上の約1/100の大気圧であり、太陽からのX線放射をより直接的に観測するのに適した環境です。
+                </p>
+</div>
+<!-- Process Steps -->
+<div class="steps-container">
+<div class="step-item">
+<div class="step-number">1</div>
+<p class="step-content">上昇フェーズ：高度変化に伴うバックグラウンド測定</p>
+</div>
+<div class="step-item">
+<div class="step-number">2</div>
+<p class="step-content">到達・浮遊：目標高度での安定的なX線強度計測</p>
+</div>
+<div class="step-item">
+<div class="step-number">3</div>
+<p class="step-content">落下・回収：海上ポイントでの機体回収とデータ分析</p>
+</div>
+</div>
+<!-- Purpose -->
+<div class="experiment-card" style="border-left-color: #10b981;">
+<p class="card-title">
+<i class="fas fa-check-double icon-data"></i>
+                    検証項目
+                </p>
+<p class="card-text">
+                    装置の耐環境性（低温・低圧）、X線検出感度の評価、およびデータ取得の安定性を実証し、今後の改良への指針を得ることを目的とします。
+                </p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

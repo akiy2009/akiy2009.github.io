@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>技術的課題と改善方針</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    body {
+        font-family: 'Noto Sans JP', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+    }
+    .header {
+        background-color: #0f172a;
+        color: #ffffff;
+        padding: 0 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        flex-shrink: 0;
+    }
+    .header-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .header-logo {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+    }
+    .main-content {
+        flex: 1;
+        display: flex;
+        padding: 2rem 3rem; /* Adjusted padding */
+        gap: 2rem;
+        background-color: #ffffff;
+        position: relative;
+        align-items: stretch;
+    }
+    .bg-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e2e8f0' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        z-index: 0;
+    }
+
+    /* Columns */
+    .col-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Problem Column Styles */
+    .panel-problem {
+        background-color: #fff1f2; /* Rose-50 */
+        border: 1px solid #fecdd3; /* Rose-200 */
+    }
+    .header-problem {
+        background-color: #e11d48; /* Rose-600 */
+        color: white;
+        padding: 1rem 1.5rem;
+        font-weight: 700;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .content-problem {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        flex: 1;
+    }
+
+    /* Solution Column Styles */
+    .panel-solution {
+        background-color: #f0fdf4; /* Green-50 */
+        border: 1px solid #bbf7d0; /* Green-200 */
+    }
+    .header-solution {
+        background-color: #059669; /* Emerald-600 */
+        color: white;
+        padding: 1rem 1.5rem;
+        font-weight: 700;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .content-solution {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        flex: 1;
+    }
+
+    /* Card Items */
+    .item-card {
+        background-color: white;
+        padding: 1.25rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    .problem-card {
+        border-left: 5px solid #f43f5e; /* Rose-500 */
+    }
+    .solution-card {
+        border-left: 5px solid #10b981; /* Emerald-500 */
+    }
+
+    .item-icon-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1.2rem;
+    }
+    .icon-problem { background-color: #ffe4e6; color: #be123c; }
+    .icon-solution { background-color: #d1fae5; color: #047857; }
+
+    .item-content {
+        flex: 1;
+    }
+    .item-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+        color: #334155;
+    }
+    .item-desc {
+        font-size: 0.95rem;
+        color: #64748b;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* Center Arrow */
+    .center-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        z-index: 2;
+    }
+    .arrow-circle {
+        width: 50px;
+        height: 50px;
+        background-color: #3b82f6;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Expectation Box in Solution */
+    .expectation-box {
+        margin-top: auto;
+        background-color: #ecfdf5;
+        border: 2px dashed #34d399;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        text-align: center;
+    }
+    .exp-title {
+        color: #059669;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        display: block;
+    }
+    .exp-text {
+        color: #065f46;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="header">
+<h1 class="header-title">
+<i class="fas fa-wrench text-yellow-400"></i> 技術的課題と改善方針
+        </h1>
+<p class="header-logo">香川高等専門学校 宇宙開発研究部</p>
+</div>
+<div class="main-content">
+<div class="bg-pattern"></div>
+<!-- Left Column: Problems -->
+<div class="col-panel panel-problem">
+<div class="header-problem">
+<i class="fas fa-exclamation-triangle"></i>
+<span>現状の課題 (Current Issues)</span>
+</div>
+<div class="content-problem">
+<!-- Issue 1 -->
+<div class="item-card problem-card">
+<div class="item-icon-box icon-problem">
+<i class="fas fa-microscope"></i>
+</div>
+<div class="item-content">
+<p class="item-title">微小電流の検出限界</p>
+<p class="item-desc">
+                            電流センサ(INA219)の分解能では、太陽フレア由来の微弱な電流変化を捉えきれない。
+                        </p>
+</div>
+</div>
+<!-- Issue 2 -->
+<div class="item-card problem-card">
+<div class="item-icon-box icon-problem">
+<i class="fas fa-wave-square"></i>
+</div>
+<div class="item-content">
+<p class="item-title">S/N比の低下</p>
+<p class="item-desc">
+                            信号強度がノイズレベルに近く、有用な観測データがノイズに埋もれてしまう問題が発生。
+                        </p>
+</div>
+</div>
+<!-- Issue 3 -->
+<div class="item-card problem-card">
+<div class="item-icon-box icon-problem">
+<i class="fas fa-ruler-combined"></i>
+</div>
+<div class="item-content">
+<p class="item-title">分解能の不足</p>
+<p class="item-desc">
+                            観測値の最小単位が粗く（小数点以下3桁程度）、詳細な波形解析が困難である。
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Center Arrow -->
+<div class="center-arrow">
+<div class="arrow-circle">
+<i class="fas fa-arrow-right"></i>
+</div>
+</div>
+<!-- Right Column: Solutions -->
+<div class="col-panel panel-solution">
+<div class="header-solution">
+<i class="fas fa-lightbulb"></i>
+<span>改善方針 (Proposed Solutions)</span>
+</div>
+<div class="content-solution">
+<!-- Solution 1 -->
+<div class="item-card solution-card">
+<div class="item-icon-box icon-solution">
+<i class="fas fa-random"></i>
+</div>
+<div class="item-content">
+<p class="item-title">TIA方式への移行</p>
+<p class="item-desc">
+                            トランスインピーダンスアンプ(TIA)を採用し、微小電流を高感度に電圧信号へ変換する回路構成に変更。
+                        </p>
+</div>
+</div>
+<!-- Solution 2 -->
+<div class="item-card solution-card">
+<div class="item-icon-box icon-solution">
+<i class="fas fa-tachometer-alt"></i>
+</div>
+<div class="item-content">
+<p class="item-title">高分解能ADCの導入</p>
+<p class="item-desc">
+                            増幅された電圧信号を高精度のA/Dコンバータでサンプリングし、量子化誤差を低減。
+                        </p>
+</div>
+</div>
+<!-- Expected Effect -->
+<div class="expectation-box">
+<p class="exp-title">
+<i class="fas fa-chart-line mr-1"></i> 期待される効果
+                    </p>
+<p class="exp-text">
+                        S/N比の大幅改善により、微細なX線強度変化の正確な観測が可能となり、太陽フレアの詳細な解析が実現します。
+                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

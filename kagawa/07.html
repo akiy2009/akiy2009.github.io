@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>データ処理方法</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    body {
+        font-family: 'Noto Sans JP', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+    }
+    .header {
+        background-color: #0f172a;
+        color: #ffffff;
+        padding: 0 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        flex-shrink: 0;
+    }
+    .header-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .header-logo {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+    }
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 4rem;
+        gap: 2rem;
+        background-color: #ffffff;
+        position: relative;
+    }
+    .bg-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23cbd5e1' fill-opacity='0.4'/%3E%3C/svg%3E");
+        opacity: 0.5;
+        z-index: 0;
+    }
+    
+    /* Process Flow Section */
+    .flow-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 1.5rem 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2e8f0;
+        z-index: 1;
+    }
+    
+    .flow-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 180px;
+        position: relative;
+    }
+    
+    .step-icon-box {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 2;
+    }
+    
+    .step-label {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #334155;
+        text-align: center;
+        margin-bottom: 0.25rem;
+    }
+    
+    .step-sub {
+        font-size: 0.8rem;
+        color: #64748b;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .flow-arrow {
+        flex: 1;
+        height: 2px;
+        background-color: #cbd5e1;
+        margin: 0 1rem;
+        position: relative;
+        top: -35px; /* Align with icon center */
+    }
+    .flow-arrow::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: -5px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 8px solid #cbd5e1;
+    }
+
+    /* Color themes for steps */
+    .theme-sensor .step-icon-box { background-color: #eff6ff; color: #3b82f6; border: 2px solid #bfdbfe; }
+    .theme-adc .step-icon-box { background-color: #f5f3ff; color: #8b5cf6; border: 2px solid #ddd6fe; }
+    .theme-pi .step-icon-box { background-color: #fff1f2; color: #e11d48; border: 2px solid #fecdd3; }
+    .theme-storage .step-icon-box { background-color: #f0fdf4; color: #10b981; border: 2px solid #bbf7d0; }
+
+    /* Details Section (Split Layout) */
+    .details-container {
+        display: flex;
+        gap: 2rem;
+        flex: 1;
+        z-index: 1;
+    }
+    
+    .csv-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+    }
+    
+    .info-card {
+        background-color: #fff;
+        border-left: 5px solid #3b82f6;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        border: 1px solid #f1f5f9;
+        border-left-width: 5px;
+    }
+    
+    .info-title {
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.05rem;
+    }
+    
+    .info-text {
+        font-size: 0.95rem;
+        color: #475569;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .csv-preview {
+        flex: 1.2;
+        background-color: #1e293b; /* Slate-800 */
+        border-radius: 0.75rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #334155;
+        height: 100%;
+    }
+    
+    .preview-header {
+        background-color: #0f172a; /* Slate-900 */
+        padding: 0.75rem 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #334155;
+    }
+    
+    .file-name {
+        color: #94a3b8;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .code-content {
+        padding: 1.5rem;
+        font-family: 'Roboto Mono', monospace;
+        color: #e2e8f0;
+        font-size: 0.95rem;
+        line-height: 1.8;
+        overflow-x: auto;
+        flex: 1;
+    }
+    
+    .code-line {
+        display: block;
+    }
+    .code-header { color: #60a5fa; font-weight: bold; border-bottom: 1px dashed #475569; padding-bottom: 0.25rem; margin-bottom: 0.5rem; } /* Blue-400 */
+    .code-data { color: #a5f3fc; } /* Cyan-200 */
+    .code-comment { color: #64748b; font-style: italic; display: block; margin-top: 1rem; font-size: 0.85rem; }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="header">
+<h1 class="header-title">
+<i class="fas fa-network-wired text-green-400"></i> データ処理と保存方式
+        </h1>
+<p class="header-logo">香川高等専門学校 宇宙開発研究部</p>
+</div>
+<div class="main-content">
+<div class="bg-pattern"></div>
+<!-- Flow Diagram -->
+<div class="flow-container">
+<!-- Step 1 -->
+<div class="flow-step theme-sensor">
+<div class="step-icon-box">
+<i class="fas fa-bolt"></i>
+</div>
+<p class="step-label">X線入射</p>
+<p class="step-sub">Siフォトダイオード<br/>電流信号生成</p>
+</div>
+<div class="flow-arrow"></div>
+<!-- Step 2 -->
+<div class="flow-step theme-adc">
+<div class="step-icon-box">
+<i class="fas fa-wave-square"></i>
+</div>
+<p class="step-label">A/D変換</p>
+<p class="step-sub">電流センサ (INA219)<br/>デジタル信号化</p>
+</div>
+<div class="flow-arrow"></div>
+<!-- Step 3 -->
+<div class="flow-step theme-pi">
+<div class="step-icon-box">
+<i class="fab fa-raspberry-pi"></i>
+</div>
+<p class="step-label">データ処理</p>
+<p class="step-sub">Raspberry Pi<br/>I2C通信・集約</p>
+</div>
+<div class="flow-arrow"></div>
+<!-- Step 4 -->
+<div class="flow-step theme-storage">
+<div class="step-icon-box">
+<i class="fas fa-file-csv"></i>
+</div>
+<p class="step-label">記録保存</p>
+<p class="step-sub">CSVファイル<br/>SDカードへ書き込み</p>
+</div>
+</div>
+<!-- Details Section -->
+<div class="details-container">
+<!-- Left: Explanations -->
+<div class="csv-info">
+<div class="info-card">
+<p class="info-title"><i class="fas fa-database"></i> 汎用性の高いCSV形式</p>
+<p class="info-text">
+                        観測毎に新規ファイルを作成。Excel等での展開が容易で、Python等の解析プログラムとも親和性が高い形式を採用しました。
+                    </p>
+</div>
+<div class="info-card" style="border-left-color: #10b981;">
+<p class="info-title" style="color: #047857;"><i class="fas fa-clipboard-check"></i> 記録データの選定</p>
+<p class="info-text">
+                        タイムスタンプと電流値(Current)を主軸に記録。電圧(Voltage)や電力(Power)は回路異常時の診断用として補助的に保存しています。
+                    </p>
+</div>
+</div>
+<!-- Right: Code Preview -->
+<div class="csv-preview">
+<div class="preview-header">
+<span class="file-name"><i class="fas fa-file-code"></i> data.csv</span>
+<span class="text-xs text-gray-500">UTF-8</span>
+</div>
+<div class="code-content">
+<span class="code-line code-header">Timestamp, Voltage[V], Current[mA], Power[mW]</span>
+<span class="code-line code-data">21:20:53, 0.016, 0.045, 0.001</span>
+<span class="code-line code-data">21:20:54, 0.016, 0.048, 0.001</span>
+<span class="code-line code-data">21:20:55, 0.016, 0.120, 0.002</span>
+<span class="code-comment"># タイムスタンプ毎にセンサ値を1行ずつ追記</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
