@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>API Documentation Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h1>API Docs</h1>
+      <p class="subtitle">Markdown Preview</p>
+      <nav id="toc"></nav>
+    </aside>
+
+    <main class="main">
+      <article id="content">Loading...</article>
+    </main>
+  </div>
+
+  <!-- marked.js (MIT License)
+       https://github.com/markedjs/marked -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <script>
+    fetch("docs.md")
+      .then(res => res.text())
+      .then(md => {
+        const html = marked.parse(md);
+        const content = document.getElementById("content");
+        content.innerHTML = html;
+
+        // 目次生成
+        const toc = document.getElementById("toc");
+        const headers = content.querySelectorAll("h2");
+        headers.forEach(h => {
+          const id = h.textContent.replace(/\s+/g, "-");
+          h.id = id;
+          const link = document.createElement("a");
+          link.href = "#" + id;
+          link.textContent = h.textContent;
+          toc.appendChild(link);
+        });
+      });
+  </script>
+</body>
+</html>
