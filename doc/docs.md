@@ -14,3 +14,25 @@
 ---
 
 ## Base URL
+
+<div class="alert info">
+<strong>INFO</strong><br>
+この API は現在テスト環境でのみ動作しています。
+</div>
+
+<div class="alert warn">
+<strong>WARN</strong><br>
+レスポンス形式は予告なく変更される可能性があります。
+</div>
+
+<div class="alert error">
+<strong>ERROR</strong><br>
+このエンドポイントは現在無効です。
+</div>
+
+---
+
+<div class="alert info">
+<strong>INFO</strong><br>
+本番環境と開発環境で URL が異なります。
+</div
