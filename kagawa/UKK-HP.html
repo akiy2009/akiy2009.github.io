@@ -1,224 +1,176 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>宇宙開発研究部 | 香川高専</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宇宙開発研究部 | 香川高専</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #050914;
-      --bg-sub: #0b1228;
-      --card: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.12);
-      --accent: #6ea8ff;
-      --accent-strong: #3b82f6;
-      --text: #e6e9f2;
-      --text-sub: #b7bdd3;
-    }
+<style>
+:root {
+  --bg: #0b0f1a;
+  --panel: #11172a;
+  --border: #1f2a44;
+  --text: #e5e7eb;
+  --sub: #9ca3af;
+  --accent: #7aa2ff;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background: radial-gradient(ellipse at top, #0d1535, var(--bg));
-      color: var(--text);
-      line-height: 1.8;
-    }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
 
-    /* ===== HERO ===== */
-    header {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+/* ===== HEADER ===== */
+header {
+  padding: 80px 24px 60px;
+  max-width: 1100px;
+  margin: auto;
+}
 
-    header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(110,168,255,0.15), transparent 40%),
-        radial-gradient(circle at 70% 60%, rgba(80,200,255,0.12), transparent 45%);
-      z-index: 0;
-    }
+header h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
 
-    .hero {
-      position: relative;
-      z-index: 1;
-      padding: 40px 20px;
-      animation: fadeUp 1.2s ease forwards;
-    }
+header p {
+  margin-top: 12px;
+  color: var(--sub);
+}
 
-    .hero h1 {
-      font-size: clamp(2.6rem, 5vw, 3.8rem);
-      font-weight: 800;
-      letter-spacing: 0.05em;
-    }
+/* ===== NAV ===== */
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(11,15,26,.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
 
-    .hero p {
-      margin-top: 20px;
-      color: var(--text-sub);
-      font-size: 1.1rem;
-    }
+nav ul {
+  max-width: 1100px;
+  margin: auto;
+  padding: 12px 24px;
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
 
-    /* ===== NAV ===== */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-      background: rgba(5,9,20,0.65);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      padding: 14px;
-    }
+nav a {
+  color: var(--sub);
+  text-decoration: none;
+  font-weight: 600;
+}
 
-    nav a {
-      color: var(--text-sub);
-      text-decoration: none;
-      font-weight: 600;
-      position: relative;
-    }
+nav a:hover { color: var(--accent); }
 
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width .3s;
-    }
+/* ===== SECTION ===== */
+section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 70px 24px;
+}
 
-    nav a:hover {
-      color: var(--text);
-    }
+section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 24px;
+}
 
-    nav a:hover::after {
-      width: 100%;
-    }
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 20px;
+}
 
-    /* ===== SECTION ===== */
-    section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 110px 20px;
-    }
+/* ===== CARD ===== */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 22px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: .6s ease;
+}
 
-    section h2 {
-      font-size: 2.2rem;
-      margin-bottom: 40px;
-      position: relative;
-    }
+.card.show {
+  opacity: 1;
+  transform: none;
+}
 
-    section h2::after {
-      content: "";
-      width: 60px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      display: block;
-      margin-top: 10px;
-    }
+.card h3 {
+  margin-top: 0;
+  font-size: 1.05rem;
+  color: var(--accent);
+}
 
-    /* ===== CARD ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
-    }
+.card p {
+  margin-bottom: 0;
+  color: var(--sub);
+}
 
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 28px;
-      backdrop-filter: blur(10px);
-      transform: translateY(30px);
-      opacity: 0;
-      transition: all .8s ease;
-    }
+/* ===== LIST ===== */
+.list {
+  padding-left: 18px;
+  color: var(--sub);
+}
 
-    .card.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
+.list li {
+  margin-bottom: 6px;
+}
 
-    .card h3 {
-      color: var(--accent);
-      margin-top: 0;
-    }
-
-    .card p {
-      color: var(--text-sub);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      text-align: center;
-      padding: 50px 20px;
-      border-top: 1px solid var(--border);
-      color: var(--text-sub);
-      background: #040711;
-    }
-
-    /* ===== ANIMATION ===== */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--sub);
+  font-size: .9rem;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="hero">
-    <h1>宇宙開発研究部</h1>
-    <p>香川高等専門学校 高松キャンパス<br>Uchu Kaihatsu Kenkyu / UKK</p>
-  </div>
+  <h1>宇宙開発研究部</h1>
+  <p>
+    香川高等専門学校 高松キャンパス<br>
+    宇宙工学・電子工学・情報工学を基盤とした学生研究団体
+  </p>
 </header>
 
 <nav>
-  <a href="#about">ABOUT</a>
-  <a href="#activity">ACTIVITY</a>
-  <a href="#achievement">ACHIEVEMENT</a>
-  <a href="#contact">CONTACT</a>
+  <ul>
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#activity">ACTIVITY</a></li>
+    <li><a href="#achievement">ACHIEVEMENT</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
 </nav>
 
 <section id="about">
   <h2>About</h2>
   <div class="grid">
     <div class="card">
-      <h3>部活動概要</h3>
+      <h3>概要</h3>
       <p>
-        宇宙開発研究部（UKK）は、香川高等専門学校高松キャンパスに所属する学生主体の研究部です。
-        宇宙工学・電子工学・情報工学を融合した実践的な研究活動を行っています。
+        宇宙開発研究部（UKK）は、宇宙・気象・電子計測分野を中心に、
+        実験・設計・解析を行う高専研究部活動です。
       </p>
     </div>
     <div class="card">
-      <h3>理念</h3>
+      <h3>研究姿勢</h3>
       <p>
-        「宇宙を身近にする技術」を掲げ、教育的価値と研究的価値の両立を目指しています。
+        教育的価値と研究成果の両立を重視し、
+        継続的な観測・改善・再設計を行っています。
       </p>
     </div>
   </div>
@@ -228,22 +180,27 @@
   <h2>Activity</h2>
   <div class="grid">
     <div class="card">
-      <h3>気象・宇宙観測</h3>
-      <p>
-        太陽フレアや大気環境の観測を目的としたセンサ・回路・解析システムの開発。
-      </p>
+      <h3>宇宙・気象観測</h3>
+      <ul class="list">
+        <li>太陽フレア X線観測</li>
+        <li>高感度センサ回路設計</li>
+        <li>長期データ取得・解析</li>
+      </ul>
     </div>
     <div class="card">
       <h3>ロケット・缶サット</h3>
-      <p>
-        小型ロケット・缶サットを通した構造設計・通信・制御の総合的学習。
-      </p>
+      <ul class="list">
+        <li>構造・通信・制御設計</li>
+        <li>マイコン・無線系実装</li>
+        <li>実験機開発</li>
+      </ul>
     </div>
     <div class="card">
-      <h3>高専スペースアカデミア</h3>
-      <p>
-        全国高専との連携による宇宙教育プログラムへの参加。
-      </p>
+      <h3>教育連携</h3>
+      <ul class="list">
+        <li>高専スペースアカデミア</li>
+        <li>全国高専との共同活動</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -252,8 +209,9 @@
   <h2>Achievement</h2>
   <div class="card">
     <p>
-      高校・高専気象観測機器コンテストにおいて複数回の入賞実績。
-      継続的な技術改良と研究姿勢が評価されています。
+      高校・高専 気象観測機器コンテストにおいて
+      複数回入賞。<br>
+      継続参加による観測精度・設計品質が評価されています。
     </p>
   </div>
 </section>
@@ -263,30 +221,22 @@
   <div class="card">
     <p>
       香川高等専門学校 高松キャンパス<br>
-      宇宙開発研究部（UKK）
-    </p>
-    <p>
-      見学・取材・共同研究については学校を通じてお問い合わせください。
+      宇宙開発研究部（UKK）<br><br>
+      見学・取材・共同研究は学校を通じてお問い合わせください。
     </p>
   </div>
 </section>
 
 <footer>
-  © 香川高等専門学校 宇宙開発研究部 UKK
+  © 香川高等専門学校 宇宙開発研究部
 </footer>
 
 <script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  }, { threshold: 0.2 });
+const observer = new IntersectionObserver(e=>{
+  e.forEach(v=>v.isIntersecting && v.target.classList.add("show"))
+},{threshold:.15});
 
-  document.querySelectorAll(".card").forEach(card => {
-    observer.observe(card);
-  });
+document.querySelectorAll(".card").forEach(c=>observer.observe(c));
 </script>
 
 </body>
