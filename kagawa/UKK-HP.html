@@ -5,23 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>宇宙開発研究部 | 香川高専 高松キャンパス</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #050914;
-      --bg-sub: #0b1228;
-      --card: rgba(255,255,255,0.05);
       --border: rgba(255,255,255,0.12);
       --accent: #6ea8ff;
       --text: #e6e9f2;
       --text-sub: #b7bdd3;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -31,48 +26,23 @@
       line-height: 1.8;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
     /* ===== HERO ===== */
     header {
-      min-height: 90vh;
+      min-height: 85vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(110,168,255,0.15), transparent 40%),
-        radial-gradient(circle at 70% 60%, rgba(80,200,255,0.12), transparent 45%);
-    }
-
-    .hero {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      padding: 0 20px;
-      animation: fadeUp 1.2s ease forwards;
     }
 
     .hero h1 {
       font-size: clamp(2.4rem, 5vw, 3.6rem);
-      font-weight: 700;
       letter-spacing: 0.08em;
     }
 
     .hero p {
-      margin-top: 20px;
       color: var(--text-sub);
+      margin-top: 16px;
     }
 
     /* ===== NAV ===== */
@@ -90,110 +60,99 @@
     }
 
     nav a {
-      font-size: 0.95rem;
       color: var(--text-sub);
+      font-size: 0.95rem;
       font-weight: 600;
+      text-decoration: none;
     }
 
-    nav a:hover {
-      color: var(--text);
-    }
+    nav a:hover { color: var(--text); }
 
     /* ===== SECTION ===== */
     section {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 100px 20px;
+      padding: 90px 20px;
     }
 
-    section h2 {
+    h2 {
       font-size: 2rem;
-      margin-bottom: 40px;
-      position: relative;
+      margin-bottom: 36px;
     }
 
-    section h2::after {
+    h2::after {
       content: "";
-      width: 50px;
+      width: 48px;
       height: 3px;
       background: linear-gradient(90deg, var(--accent), transparent);
       display: block;
       margin-top: 10px;
     }
 
-    /* ===== GRID / CARD ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
-    }
-
+    /* ===== CARD ===== */
     .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 26px;
-      backdrop-filter: blur(8px);
-      transform: translateY(30px);
+      margin-bottom: 24px;
+      background: rgba(255,255,255,0.04);
       opacity: 0;
-      transition: all .8s ease;
+      transform: translateY(20px);
+      transition: 0.8s;
     }
 
     .card.show {
-      transform: translateY(0);
       opacity: 1;
-    }
-
-    .card h3 {
-      margin-top: 0;
-      color: var(--accent);
-      font-size: 1.1rem;
-    }
-
-    .card p {
-      color: var(--text-sub);
-      font-size: 0.95rem;
+      transform: translateY(0);
     }
 
     /* ===== GALLERY ===== */
     .slider {
+      position: relative;
       overflow: hidden;
       border-radius: 18px;
       border: 1px solid var(--border);
+      user-select: none;
+      touch-action: pan-y;
     }
 
     .slides {
       display: flex;
-      transition: transform 0.8s ease;
+      transition: transform 0.6s ease;
     }
 
     .slides img {
       min-width: 100%;
       height: 420px;
       object-fit: cover;
-      opacity: 0.9;
+      pointer-events: none;
     }
+
+    /* arrows */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.45);
+      border: 1px solid var(--border);
+      color: #fff;
+      font-size: 22px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .arrow.left { left: 14px; }
+    .arrow.right { right: 14px; }
 
     /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 50px 20px;
       border-top: 1px solid var(--border);
-      background: #040711;
       color: var(--text-sub);
       font-size: 0.85rem;
-    }
-
-    /* ===== ANIMATION ===== */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
   </style>
 </head>
@@ -203,10 +162,7 @@
 <header>
   <div class="hero">
     <h1>宇宙開発研究部</h1>
-    <p>
-      香川高等専門学校 高松キャンパス<br>
-      Space Development Research Club / UKK
-    </p>
+    <p>香川高等専門学校 高松キャンパス / UKK</p>
   </div>
 </header>
 
@@ -214,86 +170,35 @@
   <a href="#about">ABOUT</a>
   <a href="#gallery">GALLERY</a>
   <a href="#activity">ACTIVITY</a>
-  <a href="#achievement">ACHIEVEMENT</a>
-  <a href="#contact">CONTACT</a>
 </nav>
 
 <section id="about">
   <h2>About</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>概要</h3>
-      <p>
-        宇宙開発研究部（UKK）は、宇宙工学・電子工学・情報工学を横断し、
-        実験と理論の両面から宇宙技術を探究する学生主体の研究部です。
-      </p>
-    </div>
-    <div class="card">
-      <h3>理念</h3>
-      <p>
-        宇宙を「遠い存在」ではなく、教育と研究を通じて
-        身近な技術として社会に還元することを目指しています。
-      </p>
-    </div>
+  <div class="card">
+    宇宙工学・電子工学・情報工学を横断し、観測・実験・解析を行う学生主体の研究部です。
   </div>
 </section>
 
 <section id="gallery">
   <h2>Gallery</h2>
-  <div class="slider">
+
+  <div class="slider" id="slider">
     <div class="slides">
       <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80">
       <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80">
       <img src="https://images.unsplash.com/photo-1447433819943-74a20887a81e?auto=format&fit=crop&w=1600&q=80">
     </div>
+
+    <button class="arrow left">‹</button>
+    <button class="arrow right">›</button>
   </div>
 </section>
 
 <section id="activity">
   <h2>Activity</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>宇宙・気象観測</h3>
-      <p>
-        太陽フレアや宇宙放射線の観測装置開発とデータ解析。
-      </p>
-    </div>
-    <div class="card">
-      <h3>ロケット・缶サット</h3>
-      <p>
-        構造設計、通信、制御を含む総合的な宇宙工学実験。
-      </p>
-    </div>
-    <div class="card">
-      <h3>全国連携</h3>
-      <p>
-        高専スペースアカデミアなど全国高専との共同活動。
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="achievement">
-  <h2>Achievement</h2>
-  <div class="card">
-    <p>
-      高校・高専気象観測機器コンテストにおいて複数回入賞。
-      継続的な研究活動と技術的独自性が評価されています。
-    </p>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="card">
-    <p>
-      香川高等専門学校 高松キャンパス<br>
-      宇宙開発研究部（UKK）
-    </p>
-    <p>
-      見学・取材・共同研究については学校を通じてお問い合わせください。
-    </p>
-  </div>
+  <div class="card">太陽フレア・宇宙放射線観測</div>
+  <div class="card">ロケット・缶サット開発</div>
+  <div class="card">全国高専との共同研究</div>
 </section>
 
 <footer>
@@ -301,24 +206,56 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  }, { threshold: 0.2 });
+  /* reveal */
+  const obs = new IntersectionObserver(e =>
+    e.forEach(v => v.isIntersecting && v.target.classList.add("show")),
+    { threshold: 0.2 }
+  );
+  document.querySelectorAll(".card").forEach(c => obs.observe(c));
 
-  document.querySelectorAll(".card").forEach(card => observer.observe(card));
+  /* slider */
+  const slider = document.getElementById("slider");
+  const slides = slider.querySelector(".slides");
+  const imgs = slider.querySelectorAll("img");
+  const prev = slider.querySelector(".left");
+  const next = slider.querySelector(".right");
 
-  const slides = document.querySelector(".slides");
-  const images = document.querySelectorAll(".slides img");
   let index = 0;
+  let startX = 0;
+  let dragging = false;
+  let auto = setInterval(nextSlide, 5000);
 
-  setInterval(() => {
-    index = (index + 1) % images.length;
+  function update() {
     slides.style.transform = `translateX(-${index * 100}%)`;
-  }, 5000);
+  }
+
+  function nextSlide() {
+    index = (index + 1) % imgs.length;
+    update();
+  }
+
+  function prevSlide() {
+    index = (index - 1 + imgs.length) % imgs.length;
+    update();
+  }
+
+  next.onclick = () => { clearInterval(auto); nextSlide(); };
+  prev.onclick = () => { clearInterval(auto); prevSlide(); };
+
+  slider.addEventListener("pointerdown", e => {
+    dragging = true;
+    startX = e.clientX;
+    clearInterval(auto);
+  });
+
+  slider.addEventListener("pointerup", e => {
+    if (!dragging) return;
+    dragging = false;
+    const diff = e.clientX - startX;
+    if (diff > 50) prevSlide();
+    if (diff < -50) nextSlide();
+    auto = setInterval(nextSlide, 5000);
+  });
 </script>
 
 </body>
