@@ -1,243 +1,106 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>宇宙開発研究部 | 香川高専</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --bg: #0b0f1a;
-  --panel: #11172a;
-  --border: #1f2a44;
-  --text: #e5e7eb;
-  --sub: #9ca3af;
-  --accent: #7aa2ff;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-}
-
-/* ===== HEADER ===== */
-header {
-  padding: 80px 24px 60px;
-  max-width: 1100px;
-  margin: auto;
-}
-
-header h1 {
-  font-size: 2.4rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-}
-
-header p {
-  margin-top: 12px;
-  color: var(--sub);
-}
-
-/* ===== NAV ===== */
-nav {
-  position: sticky;
-  top: 0;
-  background: rgba(11,15,26,.9);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
-}
-
-nav ul {
-  max-width: 1100px;
-  margin: auto;
-  padding: 12px 24px;
-  display: flex;
-  gap: 28px;
-  list-style: none;
-}
-
-nav a {
-  color: var(--sub);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-nav a:hover { color: var(--accent); }
-
-/* ===== SECTION ===== */
-section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 70px 24px;
-}
-
-section h2 {
-  font-size: 1.6rem;
-  margin-bottom: 24px;
-}
-
-/* ===== GRID ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 20px;
-}
-
-/* ===== CARD ===== */
-.card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 22px;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: .6s ease;
-}
-
-.card.show {
-  opacity: 1;
-  transform: none;
-}
-
-.card h3 {
-  margin-top: 0;
-  font-size: 1.05rem;
-  color: var(--accent);
-}
-
-.card p {
-  margin-bottom: 0;
-  color: var(--sub);
-}
-
-/* ===== LIST ===== */
-.list {
-  padding-left: 18px;
-  color: var(--sub);
-}
-
-.list li {
-  margin-bottom: 6px;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 40px 24px;
-  text-align: center;
-  color: var(--sub);
-  font-size: .9rem;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>宇宙開発研究部 Docs</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header>
-  <h1>宇宙開発研究部</h1>
-  <p>
-    香川高等専門学校 高松キャンパス<br>
-    宇宙工学・電子工学・情報工学を基盤とした学生研究団体
-  </p>
-</header>
+<div class="layout">
 
-<nav>
-  <ul>
-    <li><a href="#about">ABOUT</a></li>
-    <li><a href="#activity">ACTIVITY</a></li>
-    <li><a href="#achievement">ACHIEVEMENT</a></li>
-    <li><a href="#contact">CONTACT</a></li>
-  </ul>
-</nav>
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="logo">UKK Docs</div>
 
-<section id="about">
-  <h2>About</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>概要</h3>
-      <p>
-        宇宙開発研究部（UKK）は、宇宙・気象・電子計測分野を中心に、
-        実験・設計・解析を行う高専研究部活動です。
+    <nav>
+      <p class="nav-title">Overview</p>
+      <a href="#about">About</a>
+      <a href="#mission">Mission</a>
+
+      <p class="nav-title">Research</p>
+      <a href="#xray">X-ray Observation</a>
+      <a href="#radio">Radio & Telemetry</a>
+
+      <p class="nav-title">Info</p>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="content">
+
+    <section>
+      <h1>宇宙開発研究部</h1>
+      <p class="lead">
+        香川高等専門学校 高松キャンパス<br>
+        宇宙・電子・情報工学を基盤とした学生研究団体
       </p>
-    </div>
-    <div class="card">
-      <h3>研究姿勢</h3>
+    </section>
+
+    <section id="about">
+      <h2>About</h2>
       <p>
-        教育的価値と研究成果の両立を重視し、
-        継続的な観測・改善・再設計を行っています。
+        宇宙開発研究部（UKK）は、太陽フレア観測・無線通信・
+        センサ回路設計などを通じて、
+        実験主導型の工学研究を行っています。
       </p>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="activity">
-  <h2>Activity</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>宇宙・気象観測</h3>
-      <ul class="list">
-        <li>太陽フレア X線観測</li>
-        <li>高感度センサ回路設計</li>
-        <li>長期データ取得・解析</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>ロケット・缶サット</h3>
-      <ul class="list">
-        <li>構造・通信・制御設計</li>
-        <li>マイコン・無線系実装</li>
-        <li>実験機開発</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>教育連携</h3>
-      <ul class="list">
-        <li>高専スペースアカデミア</li>
-        <li>全国高専との共同活動</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <section id="mission">
+      <h2>Mission</h2>
+      <div class="card">
+        <ul>
+          <li>✔ 教育と研究の両立</li>
+          <li>✔ 再現性のある観測</li>
+          <li>✔ 個人・学校で再利用可能な設計</li>
+        </ul>
+      </div>
+    </section>
 
-<section id="achievement">
-  <h2>Achievement</h2>
-  <div class="card">
-    <p>
-      高校・高専 気象観測機器コンテストにおいて
-      複数回入賞。<br>
-      継続参加による観測精度・設計品質が評価されています。
-    </p>
-  </div>
-</section>
+    <section id="xray">
+      <h2>X-ray Observation</h2>
+      <p>
+        太陽フレア由来X線を高感度センサで検出し、
+        長期間にわたり連続観測を行います。
+      </p>
+      <div class="code">
+        使用例：PINフォトダイオード + 低雑音TIA + 高分解能ADC
+      </div>
+    </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="card">
-    <p>
-      香川高等専門学校 高松キャンパス<br>
-      宇宙開発研究部（UKK）<br><br>
-      見学・取材・共同研究は学校を通じてお問い合わせください。
-    </p>
-  </div>
-</section>
+    <section id="radio">
+      <h2>Radio & Telemetry</h2>
+      <p>
+        LoRa / ISM帯を用いたテレメトリ設計、
+        STM32ベースの組み込み開発を行っています。
+      </p>
+    </section>
 
-<footer>
-  © 香川高等専門学校 宇宙開発研究部
-</footer>
+    <section id="achievements">
+      <h2>Achievements</h2>
+      <div class="card">
+        高校・高専 気象観測機器コンテスト<br>
+        複数回入賞（継続参加・精度向上が評価）
+      </div>
+    </section>
 
-<script>
-const observer = new IntersectionObserver(e=>{
-  e.forEach(v=>v.isIntersecting && v.target.classList.add("show"))
-},{threshold:.15});
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        見学・取材・共同研究は<br>
+        香川高等専門学校を通じてお問い合わせください。
+      </p>
+    </section>
 
-document.querySelectorAll(".card").forEach(c=>observer.observe(c));
-</script>
+    <footer>
+      © 宇宙開発研究部 / KOSEN
+    </footer>
+
+  </main>
+</div>
 
 </body>
 </html>
