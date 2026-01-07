@@ -4,61 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>宇宙開発研究部 | 香川高専 高松キャンパス</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --bg: #050914;
-  --border: rgba(255,255,255,0.12);
-  --accent: #6ea8ff;
-  --text: #e6e9f2;
-  --text-sub: #b7bdd3;
-  --card-bg: rgba(255,255,255,0.05);
+:root{
+  --bg:#050914; --border:rgba(255,255,255,0.12); --accent:#6ea8ff;
+  --text:#e6e9f2; --text-sub:#b7bdd3; --card-bg:rgba(255,255,255,0.05);
 }
-* { box-sizing: border-box; }
-body { margin:0; font-family:"Inter",sans-serif; background: radial-gradient(ellipse at top,#0d1535,var(--bg)); color: var(--text); line-height:1.8; }
+*{box-sizing:border-box;}
+body{margin:0;font-family:"Inter",sans-serif;background:radial-gradient(ellipse at top,#0d1535,var(--bg));color:var(--text);line-height:1.8;}
+header{min-height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 20px;}
+.hero h1{font-size:clamp(2.8rem,5vw,4rem);letter-spacing:0.08em;}
+.hero p{color:var(--text-sub);margin-top:16px;font-size:1.1rem;}
+nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);background:rgba(5,9,20,0.7);border-bottom:1px solid var(--border);display:flex;justify-content:center;gap:36px;padding:14px;}
+nav a{color:var(--text-sub);font-weight:600;font-size:0.95rem;text-decoration:none;position:relative;}
+nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .3s;}
+nav a:hover{color:var(--text);}
+nav a:hover::after{width:100%;}
+section{max-width:1100px;margin:0 auto;padding:90px 20px;}
+h2{font-size:2.2rem;margin-bottom:36px;position:relative;}
+h2::after{content:"";width:48px;height:3px;background:linear-gradient(90deg,var(--accent),transparent);display:block;margin-top:10px;}
+.card{border-radius:16px;padding:26px;margin-bottom:24px;background:var(--card-bg);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:0.8s, transform 0.3s;}
+.card.show{opacity:1;transform:translateY(0);}
+.card:hover{transform:translateY(-4px);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
 
-header { min-height:85vh; display:flex; align-items:center; justify-content:center; text-align:center; }
-.hero h1 { font-size: clamp(2.4rem,5vw,3.6rem); letter-spacing:0.08em; }
-.hero p { color: var(--text-sub); margin-top:16px; }
+/* ===== スライダー ===== */
+.slider{position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--border);user-select:none;touch-action:pan-y;margin-bottom:40px;}
+.slides{display:flex;transition:transform 0.6s ease;}
+.slides img{min-width:100%;height:420px;object-fit:cover;pointer-events:none;border-radius:18px;}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:1px solid var(--border);color:#fff;font-size:22px;width:42px;height:42px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.arrow.left{left:14px;} .arrow.right{right:14px;}
+.caption{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.4);color:#fff;padding:6px 12px;border-radius:8px;font-size:0.9rem;}
+.indicators{position:absolute;bottom:16px;right:14px;display:flex;gap:6px;}
+.indicators span{display:block;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;}
+.indicators span.active{background:var(--accent);}
 
-nav {
-  position: sticky; top:0; z-index:10;
-  backdrop-filter: blur(12px); background: rgba(5,9,20,0.7);
-  border-bottom:1px solid var(--border); display:flex; justify-content:center; gap:36px; padding:14px;
-}
-nav a { color:var(--text-sub); font-weight:600; font-size:0.95rem; text-decoration:none; }
-nav a:hover { color: var(--text); }
-
-section { max-width:1100px; margin:0 auto; padding:90px 20px; }
-h2 { font-size:2rem; margin-bottom:36px; position:relative; }
-h2::after { content:""; width:48px; height:3px; background: linear-gradient(90deg,var(--accent),transparent); display:block; margin-top:10px; }
-
-.card {
-  border-radius:16px; padding:26px; margin-bottom:24px;
-  background: var(--card-bg); border:1px solid var(--border);
-  opacity:0; transform:translateY(20px); transition:0.8s, transform 0.3s;
-}
-.card.show { opacity:1; transform:translateY(0); }
-.card:hover { transform: translateY(-4px); }
-
-.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
-
-.slider { position:relative; overflow:hidden; border-radius:18px; border:1px solid var(--border); user-select:none; touch-action:pan-y; margin-bottom:40px; }
-.slides { display:flex; transition:transform 0.6s ease; }
-.slides img { min-width:100%; height:420px; object-fit:cover; pointer-events:none; }
-.arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.45); border:1px solid var(--border); color:#fff; font-size:22px; width:42px; height:42px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-.arrow.left { left:14px; } .arrow.right { right:14px; }
-.caption { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); background: rgba(0,0,0,0.4); color:#fff; padding:6px 12px; border-radius:8px; font-size:0.9rem; }
-.indicators { position:absolute; bottom:16px; right:14px; display:flex; gap:6px; }
-.indicators span { display:block; width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3); cursor:pointer; }
-.indicators span.active { background: var(--accent); }
-
-footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border); color: var(--text-sub); font-size:0.85rem; }
+footer{text-align:center;padding:50px 20px;border-top:1px solid var(--border);color:var(--text-sub);font-size:0.85rem;}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -77,12 +60,22 @@ footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border
   <a href="#contact">CONTACT</a>
 </nav>
 
+<!-- ABOUT -->
 <section id="about">
   <h2>About</h2>
-  <div class="card">宇宙工学・電子工学・情報工学を横断し、観測・実験・解析を行う学生主体の研究部です。</div>
-  <div class="card">宇宙を遠い存在ではなく、教育・研究を通して身近な技術として社会に還元することを目指しています。</div>
+  <div class="grid">
+    <div class="card">
+      <h3>部活動概要</h3>
+      <p>宇宙開発研究部（UKK）は香川高専高松キャンパスに所属する学生主体の研究部です。観測、ロケット開発、データ解析を通して実践的な宇宙工学を学びます。</p>
+    </div>
+    <div class="card">
+      <h3>理念</h3>
+      <p>「宇宙を身近にする技術」を掲げ、教育的価値と研究的価値を両立。部員一人ひとりが主体的に技術と知識を習得することを重視しています。</p>
+    </div>
+  </div>
 </section>
 
+<!-- GALLERY -->
 <section id="gallery">
   <h2>Gallery</h2>
   <div class="slider" id="slider">
@@ -98,44 +91,42 @@ footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border
   </div>
 </section>
 
+<!-- ACTIVITY -->
 <section id="activity">
   <h2>Activity</h2>
   <div class="grid">
-    <div class="card">太陽フレア・宇宙放射線観測</div>
-    <div class="card">ロケット・缶サット開発</div>
-    <div class="card">全国高専との共同研究</div>
+    <div class="card">
+      <h3>宇宙観測</h3>
+      <p>太陽フレアや大気環境の観測装置を開発。データ収集・解析まで一貫して行います。</p>
+    </div>
+    <div class="card">
+      <h3>ロケット・缶サット</h3>
+      <p>小型ロケット・缶サットを通して構造設計・通信・制御技術を総合的に学びます。</p>
+    </div>
+    <div class="card">
+      <h3>高専スペースアカデミア</h3>
+      <p>全国高専と連携した宇宙教育プログラムへの参加。合同ワークショップや研究発表も行います。</p>
+    </div>
   </div>
 </section>
 
+<!-- ACHIEVEMENT -->
 <section id="achievement">
   <h2>Achievement</h2>
-  <div class="card">高校・高専気象観測機器コンテストで複数回入賞。継続的な研究活動と技術的独自性が評価されています。</div>
-</section>
-
-<section id="articles">
-  <h2>Articles</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>太陽フレア観測プロジェクト</h3>
-      <small>2026-01-07</small>
-      <p>部員が開発した観測装置で太陽フレアをモニタリング。データ解析の手法を公開。</p>
-      <a href="#" style="color:var(--accent); text-decoration:none;">続きを読む →</a>
-    </div>
-    <div class="card">
-      <h3>ロケット試験打上げ</h3>
-      <small>2025-12-20</small>
-      <p>小型ロケットの打上げ試験を実施。構造設計や通信系の改良ポイントを紹介。</p>
-      <a href="#" style="color:var(--accent); text-decoration:none;">続きを読む →</a>
-    </div>
-    <div class="card">
-      <h3>高専スペースアカデミア参加報告</h3>
-      <small>2025-11-15</small>
-      <p>全国高専との合同ワークショップに参加。宇宙教育プログラムの学習成果をまとめました。</p>
-      <a href="#" style="color:var(--accent); text-decoration:none;">続きを読む →</a>
-    </div>
+  <div class="card">
+    高校・高専気象観測機器コンテストで複数回入賞。部員の主体的な研究姿勢と技術力が評価されています。
   </div>
 </section>
 
+<!-- ARTICLES -->
+<section id="articles">
+  <h2>Articles</h2>
+  <div class="grid" id="articles-grid">
+    <!-- JSでMarkdown記事のタイトル・概要を自動生成 -->
+  </div>
+</section>
+
+<!-- CONTACT -->
 <section id="contact">
   <h2>Contact</h2>
   <div class="card">
@@ -147,58 +138,60 @@ footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border
 
 <footer>© 香川高等専門学校 宇宙開発研究部 UKK</footer>
 
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-  // reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
-  }, { threshold: 0.2 });
-  document.querySelectorAll(".card").forEach(c => observer.observe(c));
+// 記事リスト
+const articles = [
+  {file:"articles/article1.md"},
+  {file:"articles/article2.md"},
+  {file:"articles/article3.md"}
+];
 
-  // slider
-  const slider = document.getElementById("slider");
-  const slides = slider.querySelector(".slides");
-  const imgs = slider.querySelectorAll("img");
-  const caption = slider.querySelector("#caption");
-  const prev = slider.querySelector(".left");
-  const next = slider.querySelector(".right");
-  const indicatorsContainer = slider.querySelector("#indicators");
+const grid = document.getElementById("articles-grid");
 
-  let index = 0, startX=0, dragging=false;
-  const captions = ["宇宙観測装置","ロケット実験","高専スペースアカデミア"];
+articles.forEach(a=>{
+  fetch(a.file)
+    .then(res=>res.text())
+    .then(md=>{
+      const snippet = marked.parse(md.split("\n").slice(0,6).join("\n")) + 
+      `<a href='article.html?file=${encodeURIComponent(a.file)}' style='color: #6ea8ff;text-decoration:none;'>続きを読む →</a>`;
+      const div = document.createElement("div");
+      div.className="card";
+      div.innerHTML = snippet;
+      grid.appendChild(div);
+    });
+});
 
-  imgs.forEach((_,i)=>{
-    const span = document.createElement("span");
-    if(i===0) span.classList.add("active");
-    indicatorsContainer.appendChild(span);
-    span.addEventListener("click", ()=> { index=i; updateSlider(); resetAuto(); });
-  });
-  const indicators = indicatorsContainer.querySelectorAll("span");
+// IntersectionObserver for reveal animation
+const observer = new IntersectionObserver(entries => { entries.forEach(e=>e.isIntersecting&&e.target.classList.add("show")); },{threshold:0.2});
+document.querySelectorAll(".card").forEach(c=>observer.observe(c));
 
-  function updateSlider() {
-    slides.style.transform = `translateX(-${index*100}%)`;
-    caption.textContent = captions[index];
-    indicators.forEach((s,i)=> s.classList.toggle("active", i===index));
-  }
-
-  function nextSlide(){ index=(index+1)%imgs.length; updateSlider(); }
-  function prevSlide(){ index=(index-1+imgs.length)%imgs.length; updateSlider(); }
-
-  let auto = setInterval(nextSlide,5000);
-  function resetAuto(){ clearInterval(auto); auto=setInterval(nextSlide,5000); }
-
-  next.onclick = ()=> { nextSlide(); resetAuto(); };
-  prev.onclick = ()=> { prevSlide(); resetAuto(); };
-
-  slider.addEventListener("pointerdown", e=>{ dragging=true; startX=e.clientX; clearInterval(auto); });
-  slider.addEventListener("pointerup", e=>{
-    if(!dragging) return;
-    dragging=false;
-    const diff=e.clientX-startX;
-    if(diff>50) prevSlide();
-    if(diff<-50) nextSlide();
-    resetAuto();
-  });
+// slider
+const slider = document.getElementById("slider");
+const slides = slider.querySelector(".slides");
+const imgs = slider.querySelectorAll("img");
+const caption = slider.querySelector("#caption");
+const prev = slider.querySelector(".left");
+const next = slider.querySelector(".right");
+const indicatorsContainer = slider.querySelector("#indicators");
+let index=0,startX=0,dragging=false;
+const captions = ["宇宙観測装置","ロケット実験","高専スペースアカデミア"];
+imgs.forEach((_,i)=>{
+  const span=document.createElement("span"); if(i===0) span.classList.add("active");
+  indicatorsContainer.appendChild(span);
+  span.addEventListener("click",()=>{index=i;updateSlider();resetAuto();});
+});
+const indicators = indicatorsContainer.querySelectorAll("span");
+function updateSlider(){ slides.style.transform=`translateX(-${index*100}%)`; caption.textContent=captions[index]; indicators.forEach((s,i)=>s.classList.toggle("active",i===index)); }
+function nextSlide(){ index=(index+1)%imgs.length;updateSlider();}
+function prevSlide(){ index=(index-1+imgs.length)%imgs.length;updateSlider();}
+let auto=setInterval(nextSlide,5000);
+function resetAuto(){ clearInterval(auto); auto=setInterval(nextSlide,5000);}
+next.onclick=()=>{nextSlide();resetAuto();};
+prev.onclick=()=>{prevSlide();resetAuto();};
+slider.addEventListener("pointerdown",e=>{dragging=true;startX=e.clientX;clearInterval(auto);});
+slider.addEventListener("pointerup",e=>{if(!dragging)return; dragging=false; const diff=e.clientX-startX; if(diff>50) prevSlide(); if(diff<-50) nextSlide(); resetAuto();});
 </script>
-
 </body>
 </html>
