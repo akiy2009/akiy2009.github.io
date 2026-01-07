@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事 | UKK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:"Inter",sans-serif;background:#050914;color:#e6e9f2;line-height:1.8;padding:20px;max-width:900px;margin:auto;}
+a{color:#6ea8ff;text-decoration:none;}
+img{max-width:100%;border-radius:12px;margin-bottom:16px;}
+h1,h2,h3{margin-top:20px;}
+</style>
+</head>
+<body>
+<div id="content">読み込み中...</div>
+<a href="index.html">← トップページに戻る</a>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const file = params.get("file") || "articles/article1.md";
+fetch(file)
+  .then(res=>res.text())
+  .then(md=>{
+    document.getElementById("content").innerHTML = marked.parse(md);
+  });
+</script>
+</body>
+</html>
