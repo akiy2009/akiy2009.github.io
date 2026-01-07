@@ -1,160 +1,78 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>宇宙開発研究部 | 香川高専 高松キャンパス</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宇宙開発研究部 | 香川高専 高松キャンパス</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #050914;
-      --border: rgba(255,255,255,0.12);
-      --accent: #6ea8ff;
-      --text: #e6e9f2;
-      --text-sub: #b7bdd3;
-    }
+<style>
+:root {
+  --bg: #050914;
+  --border: rgba(255,255,255,0.12);
+  --accent: #6ea8ff;
+  --text: #e6e9f2;
+  --text-sub: #b7bdd3;
+  --card-bg: rgba(255,255,255,0.05);
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family:"Inter",sans-serif; background: radial-gradient(ellipse at top,#0d1535,var(--bg)); color: var(--text); line-height:1.8; }
 
-    * { box-sizing: border-box; }
+header { min-height:85vh; display:flex; align-items:center; justify-content:center; text-align:center; }
+.hero h1 { font-size: clamp(2.4rem,5vw,3.6rem); letter-spacing:0.08em; }
+.hero p { color: var(--text-sub); margin-top:16px; }
 
-    body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background: radial-gradient(ellipse at top, #0d1535, var(--bg));
-      color: var(--text);
-      line-height: 1.8;
-    }
+nav {
+  position: sticky; top:0; z-index:10;
+  backdrop-filter: blur(12px); background: rgba(5,9,20,0.7);
+  border-bottom:1px solid var(--border); display:flex; justify-content:center; gap:36px; padding:14px;
+}
+nav a { color:var(--text-sub); font-weight:600; font-size:0.95rem; text-decoration:none; }
+nav a:hover { color: var(--text); }
 
-    /* ===== HERO ===== */
-    header {
-      min-height: 85vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+section { max-width:1100px; margin:0 auto; padding:90px 20px; }
+h2 { font-size:2rem; margin-bottom:36px; position:relative; }
+h2::after { content:""; width:48px; height:3px; background: linear-gradient(90deg,var(--accent),transparent); display:block; margin-top:10px; }
 
-    .hero h1 {
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      letter-spacing: 0.08em;
-    }
+.card {
+  border-radius:16px; padding:26px; margin-bottom:24px;
+  background: var(--card-bg); border:1px solid var(--border);
+  opacity:0; transform:translateY(20px); transition:0.8s;
+}
+.card.show { opacity:1; transform:translateY(0); }
 
-    .hero p {
-      color: var(--text-sub);
-      margin-top: 16px;
-    }
+.slider { position:relative; overflow:hidden; border-radius:18px; border:1px solid var(--border); user-select:none; touch-action:pan-y; margin-bottom:40px; }
+.slides { display:flex; transition:transform 0.6s ease; }
+.slides img { min-width:100%; height:420px; object-fit:cover; pointer-events:none; }
 
-    /* ===== NAV ===== */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-      background: rgba(5,9,20,0.7);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: center;
-      gap: 36px;
-      padding: 14px;
-    }
+.arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:rgba(0,0,0,0.45); border:1px solid var(--border); color:#fff;
+  font-size:22px; width:42px; height:42px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.arrow.left { left:14px; }
+.arrow.right { right:14px; }
 
-    nav a {
-      color: var(--text-sub);
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-    }
+.caption {
+  position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
+  background: rgba(0,0,0,0.4); color:#fff; padding:6px 12px; border-radius:8px; font-size:0.9rem;
+}
 
-    nav a:hover { color: var(--text); }
+.indicators {
+  position:absolute; bottom:16px; right:14px; display:flex; gap:6px;
+}
+.indicators span {
+  display:block; width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3);
+  cursor:pointer;
+}
+.indicators span.active { background: var(--accent); }
 
-    /* ===== SECTION ===== */
-    section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 90px 20px;
-    }
+footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border); color: var(--text-sub); font-size:0.85rem; }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 36px;
-    }
-
-    h2::after {
-      content: "";
-      width: 48px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      display: block;
-      margin-top: 10px;
-    }
-
-    /* ===== CARD ===== */
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 26px;
-      margin-bottom: 24px;
-      background: rgba(255,255,255,0.04);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: 0.8s;
-    }
-
-    .card.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ===== GALLERY ===== */
-    .slider {
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      user-select: none;
-      touch-action: pan-y;
-    }
-
-    .slides {
-      display: flex;
-      transition: transform 0.6s ease;
-    }
-
-    .slides img {
-      min-width: 100%;
-      height: 420px;
-      object-fit: cover;
-      pointer-events: none;
-    }
-
-    /* arrows */
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.45);
-      border: 1px solid var(--border);
-      color: #fff;
-      font-size: 22px;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .arrow.left { left: 14px; }
-    .arrow.right { right: 14px; }
-
-    /* ===== FOOTER ===== */
-    footer {
-      text-align: center;
-      padding: 50px 20px;
-      border-top: 1px solid var(--border);
-      color: var(--text-sub);
-      font-size: 0.85rem;
-    }
-  </style>
+/* アニメーション */
+@keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+</style>
 </head>
 
 <body>
@@ -170,27 +88,28 @@
   <a href="#about">ABOUT</a>
   <a href="#gallery">GALLERY</a>
   <a href="#activity">ACTIVITY</a>
+  <a href="#achievement">ACHIEVEMENT</a>
+  <a href="#contact">CONTACT</a>
 </nav>
 
 <section id="about">
   <h2>About</h2>
-  <div class="card">
-    宇宙工学・電子工学・情報工学を横断し、観測・実験・解析を行う学生主体の研究部です。
-  </div>
+  <div class="card">宇宙工学・電子工学・情報工学を横断し、観測・実験・解析を行う学生主体の研究部です。</div>
+  <div class="card">宇宙を遠い存在ではなく、教育・研究を通して身近な技術として社会に還元することを目指しています。</div>
 </section>
 
 <section id="gallery">
   <h2>Gallery</h2>
-
   <div class="slider" id="slider">
     <div class="slides">
-      <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80">
-      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80">
-      <img src="https://images.unsplash.com/photo-1447433819943-74a20887a81e?auto=format&fit=crop&w=1600&q=80">
+      <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80" alt="宇宙観測装置">
+      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80" alt="ロケット実験">
+      <img src="https://images.unsplash.com/photo-1447433819943-74a20887a81e?auto=format&fit=crop&w=1600&q=80" alt="高専スペースアカデミア">
     </div>
-
+    <div class="caption" id="caption">宇宙観測装置</div>
     <button class="arrow left">‹</button>
     <button class="arrow right">›</button>
+    <div class="indicators" id="indicators"></div>
   </div>
 </section>
 
@@ -201,60 +120,73 @@
   <div class="card">全国高専との共同研究</div>
 </section>
 
-<footer>
-  © 香川高等専門学校 宇宙開発研究部 UKK
-</footer>
+<section id="achievement">
+  <h2>Achievement</h2>
+  <div class="card">高校・高専気象観測機器コンテストで複数回入賞。継続的な研究活動と技術的独自性が評価されています。</div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="card">
+    香川高等専門学校 高松キャンパス<br>
+    宇宙開発研究部（UKK）<br>
+    見学・取材・共同研究については学校を通じてお問い合わせください。
+  </div>
+</section>
+
+<footer>© 香川高等専門学校 宇宙開発研究部 UKK</footer>
 
 <script>
-  /* reveal */
-  const obs = new IntersectionObserver(e =>
-    e.forEach(v => v.isIntersecting && v.target.classList.add("show")),
-    { threshold: 0.2 }
-  );
-  document.querySelectorAll(".card").forEach(c => obs.observe(c));
+  // reveal cards
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
+  }, { threshold: 0.2 });
+  document.querySelectorAll(".card").forEach(c => observer.observe(c));
 
-  /* slider */
+  // slider
   const slider = document.getElementById("slider");
   const slides = slider.querySelector(".slides");
   const imgs = slider.querySelectorAll("img");
+  const caption = slider.querySelector("#caption");
   const prev = slider.querySelector(".left");
   const next = slider.querySelector(".right");
+  const indicatorsContainer = slider.querySelector("#indicators");
 
-  let index = 0;
-  let startX = 0;
-  let dragging = false;
-  let auto = setInterval(nextSlide, 5000);
+  let index = 0, startX=0, dragging=false;
+  const captions = ["宇宙観測装置","ロケット実験","高専スペースアカデミア"];
 
-  function update() {
-    slides.style.transform = `translateX(-${index * 100}%)`;
-  }
-
-  function nextSlide() {
-    index = (index + 1) % imgs.length;
-    update();
-  }
-
-  function prevSlide() {
-    index = (index - 1 + imgs.length) % imgs.length;
-    update();
-  }
-
-  next.onclick = () => { clearInterval(auto); nextSlide(); };
-  prev.onclick = () => { clearInterval(auto); prevSlide(); };
-
-  slider.addEventListener("pointerdown", e => {
-    dragging = true;
-    startX = e.clientX;
-    clearInterval(auto);
+  // indicators
+  imgs.forEach((_,i)=>{
+    const span = document.createElement("span");
+    if(i===0) span.classList.add("active");
+    indicatorsContainer.appendChild(span);
+    span.addEventListener("click", ()=> { index=i; updateSlider(); resetAuto(); });
   });
+  const indicators = indicatorsContainer.querySelectorAll("span");
 
-  slider.addEventListener("pointerup", e => {
-    if (!dragging) return;
-    dragging = false;
-    const diff = e.clientX - startX;
-    if (diff > 50) prevSlide();
-    if (diff < -50) nextSlide();
-    auto = setInterval(nextSlide, 5000);
+  function updateSlider() {
+    slides.style.transform = `translateX(-${index*100}%)`;
+    caption.textContent = captions[index];
+    indicators.forEach((s,i)=> s.classList.toggle("active", i===index));
+  }
+
+  function nextSlide(){ index=(index+1)%imgs.length; updateSlider(); }
+  function prevSlide(){ index=(index-1+imgs.length)%imgs.length; updateSlider(); }
+
+  let auto = setInterval(nextSlide,5000);
+  function resetAuto(){ clearInterval(auto); auto=setInterval(nextSlide,5000); }
+
+  next.onclick = ()=> { nextSlide(); resetAuto(); };
+  prev.onclick = ()=> { prevSlide(); resetAuto(); };
+
+  slider.addEventListener("pointerdown", e=>{ dragging=true; startX=e.clientX; clearInterval(auto); });
+  slider.addEventListener("pointerup", e=>{
+    if(!dragging) return;
+    dragging=false;
+    const diff=e.clientX-startX;
+    if(diff>50) prevSlide();
+    if(diff<-50) nextSlide();
+    resetAuto();
   });
 </script>
 
