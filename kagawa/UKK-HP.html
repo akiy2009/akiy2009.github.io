@@ -38,40 +38,24 @@ h2::after { content:""; width:48px; height:3px; background: linear-gradient(90de
 .card {
   border-radius:16px; padding:26px; margin-bottom:24px;
   background: var(--card-bg); border:1px solid var(--border);
-  opacity:0; transform:translateY(20px); transition:0.8s;
+  opacity:0; transform:translateY(20px); transition:0.8s, transform 0.3s;
 }
 .card.show { opacity:1; transform:translateY(0); }
+.card:hover { transform: translateY(-4px); }
+
+.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
 
 .slider { position:relative; overflow:hidden; border-radius:18px; border:1px solid var(--border); user-select:none; touch-action:pan-y; margin-bottom:40px; }
 .slides { display:flex; transition:transform 0.6s ease; }
 .slides img { min-width:100%; height:420px; object-fit:cover; pointer-events:none; }
-
-.arrow {
-  position:absolute; top:50%; transform:translateY(-50%);
-  background:rgba(0,0,0,0.45); border:1px solid var(--border); color:#fff;
-  font-size:22px; width:42px; height:42px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;
-}
-.arrow.left { left:14px; }
-.arrow.right { right:14px; }
-
-.caption {
-  position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
-  background: rgba(0,0,0,0.4); color:#fff; padding:6px 12px; border-radius:8px; font-size:0.9rem;
-}
-
-.indicators {
-  position:absolute; bottom:16px; right:14px; display:flex; gap:6px;
-}
-.indicators span {
-  display:block; width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3);
-  cursor:pointer;
-}
+.arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.45); border:1px solid var(--border); color:#fff; font-size:22px; width:42px; height:42px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.arrow.left { left:14px; } .arrow.right { right:14px; }
+.caption { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); background: rgba(0,0,0,0.4); color:#fff; padding:6px 12px; border-radius:8px; font-size:0.9rem; }
+.indicators { position:absolute; bottom:16px; right:14px; display:flex; gap:6px; }
+.indicators span { display:block; width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3); cursor:pointer; }
 .indicators span.active { background: var(--accent); }
 
 footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border); color: var(--text-sub); font-size:0.85rem; }
-
-/* アニメーション */
-@keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 </style>
 </head>
 
@@ -89,6 +73,7 @@ footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border
   <a href="#gallery">GALLERY</a>
   <a href="#activity">ACTIVITY</a>
   <a href="#achievement">ACHIEVEMENT</a>
+  <a href="#articles">ARTICLES</a>
   <a href="#contact">CONTACT</a>
 </nav>
 
@@ -115,14 +100,40 @@ footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border
 
 <section id="activity">
   <h2>Activity</h2>
-  <div class="card">太陽フレア・宇宙放射線観測</div>
-  <div class="card">ロケット・缶サット開発</div>
-  <div class="card">全国高専との共同研究</div>
+  <div class="grid">
+    <div class="card">太陽フレア・宇宙放射線観測</div>
+    <div class="card">ロケット・缶サット開発</div>
+    <div class="card">全国高専との共同研究</div>
+  </div>
 </section>
 
 <section id="achievement">
   <h2>Achievement</h2>
   <div class="card">高校・高専気象観測機器コンテストで複数回入賞。継続的な研究活動と技術的独自性が評価されています。</div>
+</section>
+
+<section id="articles">
+  <h2>Articles</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>太陽フレア観測プロジェクト</h3>
+      <small>2026-01-07</small>
+      <p>部員が開発した観測装置で太陽フレアをモニタリング。データ解析の手法を公開。</p>
+      <a href="#" style="color:var(--accent); text-decoration:none;">続きを読む →</a>
+    </div>
+    <div class="card">
+      <h3>ロケット試験打上げ</h3>
+      <small>2025-12-20</small>
+      <p>小型ロケットの打上げ試験を実施。構造設計や通信系の改良ポイントを紹介。</p>
+      <a href="#" style="color:var(--accent); text-decoration:none;">続きを読む →</a>
+    </div>
+    <div class="card">
+      <h3>高専スペースアカデミア参加報告</h3>
+      <small>2025-11-15</small>
+      <p>全国高専との合同ワークショップに参加。宇宙教育プログラムの学習成果をまとめました。</p>
+      <a href="#" style="color:var(--accent); text-decoration:none;">続きを読む →</a>
+    </div>
+  </div>
 </section>
 
 <section id="contact">
@@ -137,7 +148,7 @@ footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border
 <footer>© 香川高等専門学校 宇宙開発研究部 UKK</footer>
 
 <script>
-  // reveal cards
+  // reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
   }, { threshold: 0.2 });
@@ -155,7 +166,6 @@ footer { text-align:center; padding:50px 20px; border-top:1px solid var(--border
   let index = 0, startX=0, dragging=false;
   const captions = ["宇宙観測装置","ロケット実験","高専スペースアカデミア"];
 
-  // indicators
   imgs.forEach((_,i)=>{
     const span = document.createElement("span");
     if(i===0) span.classList.add("active");
