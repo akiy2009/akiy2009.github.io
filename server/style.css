@@ -1,0 +1,53 @@
+body {
+  background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+  font-family: "Segoe UI", sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background: #111;
+  padding: 40px;
+  border-radius: 10px;
+  width: 320px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+.login-container h1 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: #222;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background: #4caf50;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background: #43a047;
+}
+
+#error {
+  color: #ff5252;
+  text-align: center;
+  margin-top: 10px;
+}
