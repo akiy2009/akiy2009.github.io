@@ -7,116 +7,179 @@
 <title>Token Forge | Design Token Optimizer</title>
 
 <style>
-body{
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-    margin:0;
-    background:#f8fafc;
-    color:#1e293b;
+
+*{
+box-sizing:border-box;
 }
 
-header{
-    background:white;
-    padding:40px;
-    border-bottom:1px solid #e2e8f0;
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+background:#f8fafc;
+color:#1e293b;
 }
 
 .container{
-    max-width:1000px;
-    margin:auto;
+max-width:1100px;
+margin:auto;
+padding:20px;
 }
 
-h1{
-    font-size:40px;
-    margin:0;
+.hero{
+background:white;
+border-bottom:1px solid #e2e8f0;
+padding:60px 20px;
+text-align:center;
 }
 
-.subtitle{
-    margin-top:10px;
-    color:#64748b;
+.hero h1{
+font-size:48px;
+margin:0;
+}
+
+.hero p{
+color:#64748b;
+margin-top:15px;
+font-size:18px;
 }
 
 .badge{
-    display:inline-block;
-    background:#2563eb;
-    color:white;
-    padding:6px 12px;
-    border-radius:6px;
-    font-size:14px;
-    margin-top:10px;
+display:inline-block;
+background:#2563eb;
+color:white;
+padding:6px 12px;
+border-radius:6px;
+margin-top:15px;
+font-size:14px;
+}
+
+.buttons{
+margin-top:25px;
+}
+
+.button{
+display:inline-block;
+padding:12px 20px;
+border-radius:8px;
+text-decoration:none;
+margin:5px;
+font-weight:500;
+}
+
+.button.primary{
+background:#2563eb;
+color:white;
+}
+
+.button.secondary{
+background:#e2e8f0;
+color:#1e293b;
 }
 
 section{
-    background:white;
-    margin-top:20px;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+background:white;
+padding:30px;
+border-radius:12px;
+margin-top:25px;
+box-shadow:0 4px 14px rgba(0,0,0,0.05);
 }
 
 h2{
-    margin-top:0;
-}
-
-pre{
-    background:#0f172a;
-    color:#e2e8f0;
-    padding:15px;
-    border-radius:8px;
-    overflow:auto;
+margin-top:0;
 }
 
 .features{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
 }
 
 .feature{
-    background:#f1f5f9;
-    padding:15px;
-    border-radius:8px;
+background:#f1f5f9;
+padding:15px;
+border-radius:8px;
+}
+
+.codeblock{
+position:relative;
+margin-top:10px;
+}
+
+pre{
+background:#0f172a;
+color:#e2e8f0;
+padding:16px;
+border-radius:8px;
+overflow:auto;
+}
+
+.copy-btn{
+position:absolute;
+right:10px;
+top:10px;
+background:#2563eb;
+color:white;
+border:none;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+}
+
+.copy-btn:hover{
+background:#1d4ed8;
+}
+
+.toast{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#1e293b;
+color:white;
+padding:10px 20px;
+border-radius:8px;
+opacity:0;
+transition:0.3s;
 }
 
 footer{
-    text-align:center;
-    padding:30px;
-    color:#64748b;
+text-align:center;
+padding:40px;
+color:#64748b;
 }
-.button{
-    display:inline-block;
-    padding:12px 18px;
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    margin-top:10px;
-}
+
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="container">
+<div class="hero">
 
 <h1>Token Forge</h1>
-<div class="subtitle">デザイントークン自動最適化ツール</div>
+
+<p>
+デザイントークンを自動最適化し  
+アクセシブルで一貫した UI カラーを生成するツール
+</p>
 
 <div class="badge">@akiy2009/token-forge</div>
 
-<p style="margin-top:20px;">
-デザイントークンを自動で最適化し、  
-背景色に合わせたコントラスト調整・色相/明度/彩度の微調整により  
-アクセシブルで一貫した UI カラーを生成する軽量ツール。
-</p>
+<div class="buttons">
 
-<a class="button" href="https://www.npmjs.com/package/@akiy2009/token-forge">
-npmで見る
+<a class="button primary"
+href="https://www.npmjs.com/package/@akiy2009/token-forge">
+npmを見る
+</a>
+
+<a class="button secondary"
+href="https://github.com">
+GitHub
 </a>
 
 </div>
-</header>
 
+</div>
 
 <div class="container">
 
@@ -126,29 +189,17 @@ npmで見る
 
 <div class="features">
 
-<div class="feature">
-🎨 WCAG AA / AAA に対応したコントラスト自動調整
-</div>
+<div class="feature">🎨 WCAG AA / AAA コントラスト調整</div>
 
-<div class="feature">
-🔧 HSLベースの色相・明度・彩度の補正
-</div>
+<div class="feature">🔧 HSL 色補正アルゴリズム</div>
 
-<div class="feature">
-🏷 JSON / CSSトークンの自動正規化
-</div>
+<div class="feature">🏷 JSON / CSS トークン対応</div>
 
-<div class="feature">
-⚡ CLIツールとしてすぐ使える
-</div>
+<div class="feature">⚡ CLIツール</div>
 
-<div class="feature">
-🧩 PostCSSプラグイン対応
-</div>
+<div class="feature">🧩 PostCSSプラグイン</div>
 
-<div class="feature">
-📦 依存ほぼゼロの軽量設計
-</div>
+<div class="feature">📦 軽量設計</div>
 
 </div>
 
@@ -159,7 +210,10 @@ npmで見る
 
 <h2>📦 インストール</h2>
 
+<div class="codeblock">
+<button class="copy-btn">Copy</button>
 <pre>npm install @akiy2009/token-forge</pre>
+</div>
 
 </section>
 
@@ -168,17 +222,19 @@ npmで見る
 
 <h2>🚀 CLI 使用例</h2>
 
-<p>JSONトークン最適化</p>
+<p>JSONトークン</p>
 
-<pre>
-adt-optimize --input tokens.json --output tokens.fixed.json
-</pre>
+<div class="codeblock">
+<button class="copy-btn">Copy</button>
+<pre>adt-optimize --input tokens.json --output tokens.fixed.json</pre>
+</div>
 
-<p>CSS変数最適化</p>
+<p>CSS変数</p>
 
-<pre>
-adt-optimize --input styles.css --output styles.fixed.css --format css
-</pre>
+<div class="codeblock">
+<button class="copy-btn">Copy</button>
+<pre>adt-optimize --input styles.css --output styles.fixed.css --format css</pre>
+</div>
 
 </section>
 
@@ -189,33 +245,36 @@ adt-optimize --input styles.css --output styles.fixed.css --format css
 
 <p>入力</p>
 
-<pre>
-{
+<div class="codeblock">
+<button class="copy-btn">Copy</button>
+<pre>{
  "primary": "#4c8cff",
  "background": "#ffffff",
  "success": "#28c76f"
-}
-</pre>
+}</pre>
+</div>
 
 <p>出力（例）</p>
 
-<pre>
-{
+<div class="codeblock">
+<button class="copy-btn">Copy</button>
+<pre>{
  "primary": "#2d6fe8",
  "background": "#ffffff",
  "success": "#219c58"
-}
-</pre>
+}</pre>
+</div>
 
 </section>
 
 
 <section>
 
-<h2>⚙ PostCSS プラグイン</h2>
+<h2>🧩 PostCSSプラグイン</h2>
 
-<pre>
-module.exports = {
+<div class="codeblock">
+<button class="copy-btn">Copy</button>
+<pre>module.exports = {
  plugins: [
    require("@akiy2009/token-forge/postcss")({
      targetContrast: 4.5,
@@ -223,29 +282,45 @@ module.exports = {
      adjustSaturation: true
    })
  ]
-};
-</pre>
+};</pre>
+</div>
 
 </section>
-
-
-<section>
-
-<h2>📄 ライセンス</h2>
-
-<p>Apache License 2.0</p>
-
-</section>
-
 
 </div>
 
 <footer>
 
-Token Forge © 2026  
-Design Token Optimizer
+Token Forge © 2026
 
 </footer>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+
+const buttons = document.querySelectorAll(".copy-btn")
+const toast = document.getElementById("toast")
+
+buttons.forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+const code = btn.nextElementSibling.innerText
+
+navigator.clipboard.writeText(code)
+
+toast.style.opacity=1
+
+setTimeout(()=>{
+toast.style.opacity=0
+},1500)
+
+})
+
+})
+
+</script>
 
 </body>
 </html>
