@@ -17,6 +17,12 @@ margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 background:#f8fafc;
 color:#1e293b;
+transition:0.3s;
+}
+
+body.dark{
+background:#0f172a;
+color:#e2e8f0;
 }
 
 .container{
@@ -32,6 +38,10 @@ padding:60px 20px;
 text-align:center;
 }
 
+body.dark .hero{
+background:#1e293b;
+}
+
 .hero h1{
 font-size:48px;
 margin:0;
@@ -41,6 +51,10 @@ margin:0;
 color:#64748b;
 margin-top:15px;
 font-size:18px;
+}
+
+body.dark .hero p{
+color:#94a3b8;
 }
 
 .badge{
@@ -84,6 +98,10 @@ margin-top:25px;
 box-shadow:0 4px 14px rgba(0,0,0,0.05);
 }
 
+body.dark section{
+background:#1e293b;
+}
+
 h2{
 margin-top:0;
 }
@@ -98,6 +116,10 @@ gap:15px;
 background:#f1f5f9;
 padding:15px;
 border-radius:8px;
+}
+
+body.dark .feature{
+background:#334155;
 }
 
 .codeblock{
@@ -130,6 +152,26 @@ font-size:12px;
 background:#1d4ed8;
 }
 
+.demo{
+display:flex;
+flex-direction:column;
+gap:10px;
+max-width:400px;
+}
+
+.demo input{
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.preview{
+margin-top:20px;
+padding:20px;
+border-radius:10px;
+font-weight:bold;
+}
+
 .toast{
 position:fixed;
 bottom:20px;
@@ -149,10 +191,26 @@ padding:40px;
 color:#64748b;
 }
 
+.toggle{
+position:fixed;
+top:20px;
+right:20px;
+cursor:pointer;
+padding:8px 12px;
+border-radius:6px;
+background:#e2e8f0;
+}
+
+body.dark .toggle{
+background:#334155;
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="toggle" onclick="toggleTheme()">🌙</div>
 
 <div class="hero">
 
@@ -169,7 +227,7 @@ color:#64748b;
 
 <a class="button primary"
 href="https://www.npmjs.com/package/@akiy2009/token-forge">
-npmを見る
+npm
 </a>
 
 <a class="button secondary"
@@ -190,18 +248,40 @@ GitHub
 <div class="features">
 
 <div class="feature">🎨 WCAG AA / AAA コントラスト調整</div>
-
 <div class="feature">🔧 HSL 色補正アルゴリズム</div>
-
 <div class="feature">🏷 JSON / CSS トークン対応</div>
-
 <div class="feature">⚡ CLIツール</div>
-
 <div class="feature">🧩 PostCSSプラグイン</div>
-
 <div class="feature">📦 軽量設計</div>
 
 </div>
+
+</section>
+
+
+<section>
+
+<h2>🎨 Live Demo</h2>
+
+<p>Token Forge のカラー最適化を試す</p>
+
+<div class="demo">
+
+<label>Background</label>
+<input type="color" id="bg" value="#ffffff">
+
+<label>Primary</label>
+<input type="color" id="primary" value="#4c8cff">
+
+<button onclick="optimize()">Optimize</button>
+
+</div>
+
+<div id="preview" class="preview">
+Preview Text
+</div>
+
+<p id="contrast"></p>
 
 </section>
 
@@ -222,14 +302,10 @@ GitHub
 
 <h2>🚀 CLI 使用例</h2>
 
-<p>JSONトークン</p>
-
 <div class="codeblock">
 <button class="copy-btn">Copy</button>
 <pre>adt-optimize --input tokens.json --output tokens.fixed.json</pre>
 </div>
-
-<p>CSS変数</p>
 
 <div class="codeblock">
 <button class="copy-btn">Copy</button>
@@ -238,61 +314,10 @@ GitHub
 
 </section>
 
-
-<section>
-
-<h2>🗂 JSONトークン例</h2>
-
-<p>入力</p>
-
-<div class="codeblock">
-<button class="copy-btn">Copy</button>
-<pre>{
- "primary": "#4c8cff",
- "background": "#ffffff",
- "success": "#28c76f"
-}</pre>
-</div>
-
-<p>出力（例）</p>
-
-<div class="codeblock">
-<button class="copy-btn">Copy</button>
-<pre>{
- "primary": "#2d6fe8",
- "background": "#ffffff",
- "success": "#219c58"
-}</pre>
-</div>
-
-</section>
-
-
-<section>
-
-<h2>🧩 PostCSSプラグイン</h2>
-
-<div class="codeblock">
-<button class="copy-btn">Copy</button>
-<pre>module.exports = {
- plugins: [
-   require("@akiy2009/token-forge/postcss")({
-     targetContrast: 4.5,
-     adjustHue: true,
-     adjustSaturation: true
-   })
- ]
-};</pre>
-</div>
-
-</section>
-
 </div>
 
 <footer>
-
 Token Forge © 2026
-
 </footer>
 
 <div class="toast" id="toast">Copied!</div>
@@ -303,22 +328,71 @@ const buttons = document.querySelectorAll(".copy-btn")
 const toast = document.getElementById("toast")
 
 buttons.forEach(btn=>{
-
 btn.addEventListener("click",()=>{
-
 const code = btn.nextElementSibling.innerText
-
 navigator.clipboard.writeText(code)
-
 toast.style.opacity=1
-
-setTimeout(()=>{
-toast.style.opacity=0
-},1500)
-
+setTimeout(()=>{toast.style.opacity=0},1500)
+})
 })
 
+function toggleTheme(){
+document.body.classList.toggle("dark")
+}
+
+function luminance(r,g,b){
+
+const a=[r,g,b].map(v=>{
+v/=255
+return v<=0.03928
+? v/12.92
+: Math.pow((v+0.055)/1.055,2.4)
 })
+
+return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2]
+
+}
+
+function hexToRgb(hex){
+
+const bigint=parseInt(hex.slice(1),16)
+
+return{
+r:(bigint>>16)&255,
+g:(bigint>>8)&255,
+b:bigint&255
+}
+
+}
+
+function contrast(c1,c2){
+
+const rgb1=hexToRgb(c1)
+const rgb2=hexToRgb(c2)
+
+const L1=luminance(rgb1.r,rgb1.g,rgb1.b)
+const L2=luminance(rgb2.r,rgb2.g,rgb2.b)
+
+return (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05)
+
+}
+
+function optimize(){
+
+const bg=document.getElementById("bg").value
+const primary=document.getElementById("primary").value
+
+const ratio=contrast(bg,primary).toFixed(2)
+
+const preview=document.getElementById("preview")
+
+preview.style.background=bg
+preview.style.color=primary
+
+document.getElementById("contrast").innerText=
+"Contrast ratio: "+ratio
+
+}
 
 </script>
 
